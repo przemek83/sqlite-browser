@@ -4,11 +4,16 @@
 
 const QString DatabaseConfig::tableName_ {"client"};
 
+const QMap<DatabaseConfig::SqLite3ColumnType, QString>
+DatabaseConfig::typeToStringMap_ {{DatabaseConfig::SqLite3ColumnType::INTEGER, "INTEGER"},
+                                  {DatabaseConfig::SqLite3ColumnType::REAL, "REAL"},
+                                  {DatabaseConfig::SqLite3ColumnType::TEXT, "VARCHAR(50)"}};
+
 const std::vector<DatabaseConfig::SqlColumn>
-DatabaseConfig::columns_ {{"id", "id", "INTEGER", true},
-                          {"firstname", "First name", "VARCHAR(50)", false},
-                          {"lastname", "Last name", "VARCHAR(50)", false},
-                          {"age", "Age", "INTEGER", false}};
+DatabaseConfig::columns_ {{"id", "id", DatabaseConfig::SqLite3ColumnType::INTEGER, true},
+                          {"firstname", "First name", DatabaseConfig::SqLite3ColumnType::TEXT, false},
+                          {"lastname", "Last name", DatabaseConfig::SqLite3ColumnType::TEXT, false},
+                          {"age", "Age", DatabaseConfig::SqLite3ColumnType::INTEGER, false}};
 
 DatabaseConfig::DatabaseConfig()
 {
@@ -33,7 +38,7 @@ QString DatabaseConfig::getCreateTableSql() const
     {
         const auto& column = columns_[i];
         sql += column.columnName_ + " ";
-        sql += column.type_;
+        sql += typeToStringMap_[column.type_];
         if (column.primaryKey_)
         {
             sql += " PRIMARY KEY";

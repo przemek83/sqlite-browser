@@ -10,7 +10,6 @@ class AddRowDialog;
 class AddRowDialog : public QDialog
 {
     Q_OBJECT
-
 public:
     explicit AddRowDialog(const QVector<QString>& userFriendlyColumnNames, QWidget* parent = 0);
     virtual ~AddRowDialog();

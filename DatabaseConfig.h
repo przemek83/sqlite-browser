@@ -2,6 +2,7 @@
 #define DATABASECONFIG_H
 
 #include <QString>
+#include <QMap>
 #include <unordered_map>
 
 class DatabaseConfig
@@ -27,6 +28,13 @@ public:
 
     const QVector<QString>& getUserFriendlyColumnNames() const;
 
+    enum class SqLite3ColumnType
+    {
+        INTEGER,
+        REAL,
+        TEXT
+    };
+
 private:
     struct SqlColumn
     {
@@ -35,10 +43,12 @@ private:
 
         const QString userFriendlyColumnName_;
 
-        const QString type_;
+        const SqLite3ColumnType type_;
 
         const bool primaryKey_;
     };
+
+    static const QMap<SqLite3ColumnType, QString> typeToStringMap_;
 
     static const QString tableName_;
 
