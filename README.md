@@ -1,3 +1,7 @@
+## Screenshot:  
+![Alt text](Screenshot1.png?raw=true "")
+![Alt text](Screenshot2.png?raw=true "")
+
 ## Building:  
 Compile using project file sqlite-browser.pro file (from QtCreator IDE or cmd).  
 
@@ -11,7 +15,7 @@ AddRowDialog.[h|cpp|ui] - Dialog window used whew user want to add new record in
 
 ## Additional info  
 Potential further improvements:  
-1) Make creation of DB and use of things related to database structure fully generic.  
+1) Make fully generic creation of DB and use of things related to database structure.  
 2) Use json file as DB structure definition (would fill DatabaseConfig class).  
 
 I'm not fully happy about:  
