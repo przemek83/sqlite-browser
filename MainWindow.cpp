@@ -26,9 +26,9 @@ MainWindow::MainWindow(DatabaseConfig databaseConfig, QWidget* parent) :
 
 MainWindow::~MainWindow()
 {
-    delete ui;
-
     closeCurrentDatabase();
+
+    delete ui;
 }
 
 void MainWindow::closeCurrentDatabase()
