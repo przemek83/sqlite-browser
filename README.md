@@ -1,4 +1,4 @@
-## Screenshot:  
+## Screenshots:  
 ![Alt text](Screenshot1.png?raw=true "")
 ![Alt text](Screenshot2.png?raw=true "")
 
