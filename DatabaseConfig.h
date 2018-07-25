@@ -4,6 +4,7 @@
 #include <QString>
 #include <QMap>
 #include <unordered_map>
+#include <vector>
 
 class DatabaseConfig
 {
