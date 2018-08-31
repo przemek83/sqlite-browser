@@ -20,7 +20,8 @@ MainWindow::MainWindow(DatabaseConfig databaseConfig, QWidget* parent) :
     connect(ui->actionExit, SIGNAL(triggered(bool)), QCoreApplication::instance(), SLOT(quit()));
 
     QStyle* style = QApplication::style();
-    ui->actionConnect->setIcon(style->standardIcon(QStyle::SP_DialogOpenButton));
+    ui->actionNew->setIcon(style->standardIcon(QStyle::SP_FileDialogNewFolder));
+    ui->actionOpen->setIcon(style->standardIcon(QStyle::SP_DialogOpenButton));
     ui->actionExit->setIcon(style->standardIcon(QStyle::SP_DialogCloseButton));
 }
 
@@ -95,13 +96,9 @@ void MainWindow::prepareView(QSqlDatabase& database)
             SLOT(rowSelectionChanged(QModelIndex, QModelIndex)));
 }
 
-void MainWindow::on_actionConnect_triggered()
+void MainWindow::openDatabaseFile(const QString& databaseFilePath)
 {
-    QFileDialog dialog;
-    dialog.setFileMode(QFileDialog::AnyFile);
-    dialog.setNameFilter(tr("SQLiteDB (*.sqlite3);; All (*.*))"));
-
-    if (!dialog.exec())
+    if (databaseFilePath.isNull())
     {
         return;
     }
@@ -109,18 +106,17 @@ void MainWindow::on_actionConnect_triggered()
     closeCurrentDatabase();
 
     QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
-    QString newDatabasePath = dialog.selectedFiles().first();
-    database.setDatabaseName(newDatabasePath);
+    database.setDatabaseName(databaseFilePath);
 
     if (!database.open())
     {
-        ui->statusBar->showMessage(tr("Cannot open database") + " " + newDatabasePath);
+        ui->statusBar->showMessage(tr("Cannot open database") + " " + databaseFilePath);
         return;
     }
 
     if (!databaseStructureOk(database))
     {
-        ui->statusBar->showMessage(tr("Cannot query database") + " " + newDatabasePath);
+        ui->statusBar->showMessage(tr("Cannot query database") + " " + databaseFilePath);
         return;
     }
 
@@ -130,7 +126,21 @@ void MainWindow::on_actionConnect_triggered()
 
     ui->actionDelete_row->setEnabled(false);
 
-    ui->statusBar->showMessage(tr("Connected to") + " " + newDatabasePath + "...");
+    ui->statusBar->showMessage(tr("Connected to") + " " + databaseFilePath + "...");
+}
+
+void MainWindow::on_actionNew_triggered()
+{
+    QString newDatabasePath = QFileDialog::getSaveFileName(this, "Create new DB file", "", tr("SQLiteDB (*.sqlite3);; All (*.*))"));
+
+    openDatabaseFile(newDatabasePath);
+}
+
+void MainWindow::on_actionOpen_triggered()
+{
+    QString databasePath = QFileDialog::getOpenFileName(this, "Open DB file", "", tr("SQLiteDB (*.sqlite3);; All (*.*))"));
+
+    openDatabaseFile(databasePath);
 }
 
 void MainWindow::rowSelectionChanged(const QModelIndex& current, const QModelIndex& /*previous*/)

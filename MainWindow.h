@@ -29,12 +29,16 @@ private:
 
     void prepareView(QSqlDatabase& database);
 
+    void openDatabaseFile(const QString& databaseFilePath);
+
     Ui::MainWindow* ui;
 
     DatabaseConfig databaseConfig_;
 
 private slots:
-    void on_actionConnect_triggered();
+    void on_actionNew_triggered();
+
+    void on_actionOpen_triggered();
 
     void rowSelectionChanged(const QModelIndex& current, const QModelIndex& previous);
 

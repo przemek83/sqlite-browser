@@ -67,7 +67,8 @@
     <property name="title">
      <string>Menu</string>
     </property>
-    <addaction name="actionConnect"/>
+    <addaction name="actionNew"/>
+    <addaction name="actionOpen"/>
     <addaction name="actionAdd_row"/>
     <addaction name="actionDelete_row"/>
     <addaction name="separator"/>
@@ -82,17 +83,18 @@
    <attribute name="toolBarBreak">
     <bool>false</bool>
    </attribute>
-   <addaction name="actionConnect"/>
+   <addaction name="actionNew"/>
+   <addaction name="actionOpen"/>
    <addaction name="actionAdd_row"/>
    <addaction name="actionDelete_row"/>
   </widget>
   <widget class="QStatusBar" name="statusBar"/>
-  <action name="actionConnect">
+  <action name="actionOpen">
    <property name="text">
-    <string>Open Database</string>
+    <string>Open</string>
    </property>
    <property name="toolTip">
-    <string>Create new or open existing database</string>
+    <string>Open existing database</string>
    </property>
    <property name="shortcut">
     <string>Ctrl+O</string>
@@ -143,6 +145,17 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+D</string>
+   </property>
+  </action>
+  <action name="actionNew">
+   <property name="text">
+    <string>New</string>
+   </property>
+   <property name="toolTip">
+    <string>Create new database</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+N</string>
    </property>
   </action>
  </widget>
