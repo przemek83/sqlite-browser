@@ -9,9 +9,9 @@
 class DatabaseConfig
 {
 public:
-    DatabaseConfig();
+    DatabaseConfig() = default;
 
-    ~DatabaseConfig();
+    ~DatabaseConfig() = default;
 
     DatabaseConfig& operator=(const DatabaseConfig& other) = delete;
     DatabaseConfig(const DatabaseConfig& other) = delete;
@@ -51,7 +51,7 @@ private:
 
     static const QMap<SqLite3ColumnType, QString> typeToStringMap_;
 
-    static const QString tableName_;
+    const QString tableName_{"client"};
 
     static const std::vector<SqlColumn> columns_;
 };

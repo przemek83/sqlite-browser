@@ -7,7 +7,8 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    MainWindow w(std::move(DatabaseConfig()));
+    DatabaseConfig config;
+    MainWindow w(std::move(config));
     w.show();
 
     return a.exec();

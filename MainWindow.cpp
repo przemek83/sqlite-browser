@@ -150,7 +150,7 @@ void MainWindow::rowSelectionChanged(const QModelIndex& current, const QModelInd
 
 void MainWindow::on_actionDelete_row_triggered()
 {
-    QSqlTableModel* model = dynamic_cast<QSqlTableModel*>(ui->tableView->model());
+    auto model = dynamic_cast<QSqlTableModel*>(ui->tableView->model());
     int rowToBeRemove = ui->tableView->currentIndex().row();
 
     if (model->removeRow(rowToBeRemove))
@@ -166,12 +166,12 @@ void MainWindow::on_actionDelete_row_triggered()
 void MainWindow::on_actionAdd_row_triggered()
 {
     AddRowDialog addRowDialog(databaseConfig_.getUserFriendlyColumnNames(), this);
-    if (!addRowDialog.exec())
+    if (QDialog::Rejected == addRowDialog.exec())
     {
         return;
     }
 
-    QSqlTableModel* model = dynamic_cast<QSqlTableModel*>(ui->tableView->model());
+    auto model = dynamic_cast<QSqlTableModel*>(ui->tableView->model());
     QSqlRecord recordToInsert = model->record();
 
     const QVector<QString>& columnNames = databaseConfig_.getColumnNames();

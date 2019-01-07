@@ -16,7 +16,7 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit MainWindow(DatabaseConfig databaseConfig, QWidget* parent = 0);
+    explicit MainWindow(DatabaseConfig databaseConfig, QWidget* parent = nullptr);
 
     virtual ~MainWindow();
 

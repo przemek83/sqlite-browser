@@ -2,8 +2,6 @@
 
 #include <QVector>
 
-const QString DatabaseConfig::tableName_ {"client"};
-
 const QMap<DatabaseConfig::SqLite3ColumnType, QString>
 DatabaseConfig::typeToStringMap_ {{DatabaseConfig::SqLite3ColumnType::INTEGER, "INTEGER"},
                                   {DatabaseConfig::SqLite3ColumnType::REAL, "REAL"},
@@ -14,16 +12,6 @@ DatabaseConfig::columns_ {{"id", "id", DatabaseConfig::SqLite3ColumnType::INTEGE
                           {"firstname", "First name", DatabaseConfig::SqLite3ColumnType::TEXT, false},
                           {"lastname", "Last name", DatabaseConfig::SqLite3ColumnType::TEXT, false},
                           {"age", "Age", DatabaseConfig::SqLite3ColumnType::INTEGER, false}};
-
-DatabaseConfig::DatabaseConfig()
-{
-
-}
-
-DatabaseConfig::~DatabaseConfig()
-{
-
-}
 
 QString DatabaseConfig::getTableName() const
 {
