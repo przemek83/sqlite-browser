@@ -3,7 +3,8 @@
 
 #include <QDialog>
 
-namespace Ui {
+namespace Ui
+{
 class AddRowDialog;
 }
 
@@ -11,7 +12,8 @@ class AddRowDialog : public QDialog
 {
     Q_OBJECT
 public:
-    explicit AddRowDialog(const QVector<QString>& userFriendlyColumnNames, QWidget* parent = nullptr);
+    explicit AddRowDialog(const QVector<QString>& userFriendlyColumnNames,
+                          QWidget* parent = nullptr);
     virtual ~AddRowDialog();
 
     QVector<QVariant> getUserInputData() const;
@@ -20,4 +22,4 @@ private:
     Ui::AddRowDialog* ui;
 };
 
-#endif // ADDROWDIALOG_H
+#endif  // ADDROWDIALOG_H

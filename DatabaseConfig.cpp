@@ -3,20 +3,18 @@
 #include <QVector>
 
 const QMap<DatabaseConfig::SqLite3ColumnType, QString>
-DatabaseConfig::typeToStringMap_ {{DatabaseConfig::SqLite3ColumnType::INTEGER, "INTEGER"},
-                                  {DatabaseConfig::SqLite3ColumnType::REAL, "REAL"},
-                                  {DatabaseConfig::SqLite3ColumnType::TEXT, "VARCHAR(50)"}};
+    DatabaseConfig::typeToStringMap_{
+        {DatabaseConfig::SqLite3ColumnType::INTEGER, "INTEGER"},
+        {DatabaseConfig::SqLite3ColumnType::REAL, "REAL"},
+        {DatabaseConfig::SqLite3ColumnType::TEXT, "VARCHAR(50)"}};
 
-const std::vector<DatabaseConfig::SqlColumn>
-DatabaseConfig::columns_ {{"id", "id", DatabaseConfig::SqLite3ColumnType::INTEGER, true},
-                          {"firstname", "First name", DatabaseConfig::SqLite3ColumnType::TEXT, false},
-                          {"lastname", "Last name", DatabaseConfig::SqLite3ColumnType::TEXT, false},
-                          {"age", "Age", DatabaseConfig::SqLite3ColumnType::INTEGER, false}};
+const std::vector<DatabaseConfig::SqlColumn> DatabaseConfig::columns_{
+    {"id", "id", DatabaseConfig::SqLite3ColumnType::INTEGER, true},
+    {"firstname", "First name", DatabaseConfig::SqLite3ColumnType::TEXT, false},
+    {"lastname", "Last name", DatabaseConfig::SqLite3ColumnType::TEXT, false},
+    {"age", "Age", DatabaseConfig::SqLite3ColumnType::INTEGER, false}};
 
-QString DatabaseConfig::getTableName() const
-{
-    return tableName_;
-}
+QString DatabaseConfig::getTableName() const { return tableName_; }
 
 QString DatabaseConfig::getCreateTableSql() const
 {
@@ -56,12 +54,12 @@ QString DatabaseConfig::getCheckTableSql() const
 
 const QVector<QString>& DatabaseConfig::getColumnNames() const
 {
-    static QVector<QString> columnNames {};
+    static QVector<QString> columnNames{};
     if (columnNames.empty())
     {
         for (const auto& column : columns_)
         {
-           columnNames.push_back(column.columnName_);
+            columnNames.push_back(column.columnName_);
         }
 
         // Primary key column not needed.
@@ -73,12 +71,12 @@ const QVector<QString>& DatabaseConfig::getColumnNames() const
 
 const QVector<QString>& DatabaseConfig::getUserFriendlyColumnNames() const
 {
-    static QVector<QString> userFriendlyColumnNames {};
+    static QVector<QString> userFriendlyColumnNames{};
     if (userFriendlyColumnNames.empty())
     {
         for (const auto& column : columns_)
         {
-           userFriendlyColumnNames.push_back(column.userFriendlyColumnName_);
+            userFriendlyColumnNames.push_back(column.userFriendlyColumnName_);
         }
 
         // Primary key column not needed.

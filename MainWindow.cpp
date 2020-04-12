@@ -1,23 +1,24 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 
+#include <QFileDialog>
 #include <QSqlDatabase>
 #include <QSqlQuery>
+#include <QSqlRecord>
 #include <QSqlTableModel>
 #include <QString>
-#include <QSqlRecord>
-#include <QFileDialog>
 
 #include "AddRowDialog.h"
 
-MainWindow::MainWindow(DatabaseConfig databaseConfig, QWidget* parent) :
-    QMainWindow(parent),
-    ui(new Ui::MainWindow),
-    databaseConfig_(std::move(databaseConfig))
+MainWindow::MainWindow(DatabaseConfig databaseConfig, QWidget* parent)
+    : QMainWindow(parent),
+      ui(new Ui::MainWindow),
+      databaseConfig_(std::move(databaseConfig))
 {
     ui->setupUi(this);
 
-    connect(ui->actionExit, SIGNAL(triggered(bool)), QCoreApplication::instance(), SLOT(quit()));
+    connect(ui->actionExit, SIGNAL(triggered(bool)),
+            QCoreApplication::instance(), SLOT(quit()));
 
     QStyle* style = QApplication::style();
     ui->actionNew->setIcon(style->standardIcon(QStyle::SP_FileDialogNewFolder));
@@ -54,7 +55,8 @@ QSqlTableModel* MainWindow::createNewModel(QSqlDatabase& database) const
     model->setTable(databaseConfig_.getTableName());
     model->setEditStrategy(QSqlTableModel::OnFieldChange);
 
-    const QVector<QString>& userFriendlyColumnNames = databaseConfig_.getUserFriendlyColumnNames();
+    const QVector<QString>& userFriendlyColumnNames =
+        databaseConfig_.getUserFriendlyColumnNames();
     for (int i = 0; i < userFriendlyColumnNames.size(); ++i)
     {
         // Skip primary key column (column 0).
@@ -91,8 +93,7 @@ void MainWindow::prepareView(QSqlDatabase& database)
     ui->tableView->hideColumn(0);
 
     connect(ui->tableView->selectionModel(),
-            SIGNAL(currentRowChanged(QModelIndex,QModelIndex)),
-            this,
+            SIGNAL(currentRowChanged(QModelIndex, QModelIndex)), this,
             SLOT(rowSelectionChanged(QModelIndex, QModelIndex)));
 }
 
@@ -110,13 +111,15 @@ void MainWindow::openDatabaseFile(const QString& databaseFilePath)
 
     if (!database.open())
     {
-        ui->statusBar->showMessage(tr("Cannot open database") + " " + databaseFilePath);
+        ui->statusBar->showMessage(tr("Cannot open database") + " " +
+                                   databaseFilePath);
         return;
     }
 
     if (!databaseStructureOk(database))
     {
-        ui->statusBar->showMessage(tr("Cannot query database") + " " + databaseFilePath);
+        ui->statusBar->showMessage(tr("Cannot query database") + " " +
+                                   databaseFilePath);
         return;
     }
 
@@ -126,24 +129,29 @@ void MainWindow::openDatabaseFile(const QString& databaseFilePath)
 
     ui->actionDelete_row->setEnabled(false);
 
-    ui->statusBar->showMessage(tr("Connected to") + " " + databaseFilePath + "...");
+    ui->statusBar->showMessage(tr("Connected to") + " " + databaseFilePath +
+                               "...");
 }
 
 void MainWindow::on_actionNew_triggered()
 {
-    QString newDatabasePath = QFileDialog::getSaveFileName(this, "Create new DB file", "", tr("SQLiteDB (*.sqlite3);; All (*.*))"));
+    QString newDatabasePath =
+        QFileDialog::getSaveFileName(this, "Create new DB file", "",
+                                     tr("SQLiteDB (*.sqlite3);; All (*.*))"));
 
     openDatabaseFile(newDatabasePath);
 }
 
 void MainWindow::on_actionOpen_triggered()
 {
-    QString databasePath = QFileDialog::getOpenFileName(this, "Open DB file", "", tr("SQLiteDB (*.sqlite3);; All (*.*))"));
+    QString databasePath = QFileDialog::getOpenFileName(
+        this, "Open DB file", "", tr("SQLiteDB (*.sqlite3);; All (*.*))"));
 
     openDatabaseFile(databasePath);
 }
 
-void MainWindow::rowSelectionChanged(const QModelIndex& current, const QModelIndex& /*previous*/)
+void MainWindow::rowSelectionChanged(const QModelIndex& current,
+                                     const QModelIndex& /*previous*/)
 {
     ui->actionDelete_row->setEnabled(current.isValid());
 }
@@ -165,7 +173,8 @@ void MainWindow::on_actionDelete_row_triggered()
 
 void MainWindow::on_actionAdd_row_triggered()
 {
-    AddRowDialog addRowDialog(databaseConfig_.getUserFriendlyColumnNames(), this);
+    AddRowDialog addRowDialog(databaseConfig_.getUserFriendlyColumnNames(),
+                              this);
     if (QDialog::Rejected == addRowDialog.exec())
     {
         return;

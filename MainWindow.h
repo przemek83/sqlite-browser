@@ -5,7 +5,8 @@
 
 #include "DatabaseConfig.h"
 
-namespace Ui {
+namespace Ui
+{
 class MainWindow;
 }
 
@@ -16,7 +17,8 @@ class MainWindow : public QMainWindow
 {
     Q_OBJECT
 public:
-    explicit MainWindow(DatabaseConfig databaseConfig, QWidget* parent = nullptr);
+    explicit MainWindow(DatabaseConfig databaseConfig,
+                        QWidget* parent = nullptr);
 
     virtual ~MainWindow();
 
@@ -40,11 +42,12 @@ private slots:
 
     void on_actionOpen_triggered();
 
-    void rowSelectionChanged(const QModelIndex& current, const QModelIndex& previous);
+    void rowSelectionChanged(const QModelIndex& current,
+                             const QModelIndex& previous);
 
     void on_actionDelete_row_triggered();
 
     void on_actionAdd_row_triggered();
 };
 
-#endif // MAINWINDOW_H
+#endif  // MAINWINDOW_H

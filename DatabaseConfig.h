@@ -1,8 +1,8 @@
 #ifndef DATABASECONFIG_H
 #define DATABASECONFIG_H
 
-#include <QString>
 #include <QMap>
+#include <QString>
 #include <unordered_map>
 #include <vector>
 
@@ -56,4 +56,4 @@ private:
     static const std::vector<SqlColumn> columns_;
 };
 
-#endif // DATABASECONFIG_H
+#endif  // DATABASECONFIG_H
