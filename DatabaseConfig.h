@@ -1,5 +1,4 @@
-#ifndef DATABASECONFIG_H
-#define DATABASECONFIG_H
+#pragma once
 
 #include <QMap>
 #include <QString>
@@ -55,5 +54,3 @@ private:
 
     static const std::vector<SqlColumn> columns_;
 };
-
-#endif  // DATABASECONFIG_H

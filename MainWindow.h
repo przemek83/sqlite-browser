@@ -1,5 +1,4 @@
-#ifndef MAINWINDOW_H
-#define MAINWINDOW_H
+#pragma once
 
 #include <QMainWindow>
 
@@ -49,5 +48,3 @@ private slots:
 
     void on_actionAdd_row_triggered();
 };
-
-#endif  // MAINWINDOW_H

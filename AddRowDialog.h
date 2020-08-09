@@ -1,5 +1,4 @@
-#ifndef ADDROWDIALOG_H
-#define ADDROWDIALOG_H
+#pragma once
 
 #include <QDialog>
 
@@ -21,5 +20,3 @@ public:
 private:
     Ui::AddRowDialog* ui;
 };
-
-#endif  // ADDROWDIALOG_H
