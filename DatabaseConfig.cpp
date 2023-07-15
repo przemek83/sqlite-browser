@@ -15,10 +15,11 @@ QString DatabaseConfig::getCreateTableSql() const
         sql += typeToStringMap_[column.type_];
         if (column.primaryKey_)
         {
-            sql += " PRIMARY KEY";
+            sql += QStringLiteral(" PRIMARY KEY");
         }
 
-        sql += (i < columns_.size() - 1 ? ", " : ");");
+        sql += (i < columns_.size() - 1 ? QStringLiteral(", ")
+                                        : QStringLiteral(");"));
     }
 
     return sql;
@@ -27,49 +28,40 @@ QString DatabaseConfig::getCreateTableSql() const
 QString DatabaseConfig::getCheckTableSql() const
 {
     QString sql;
-    sql += "SELECT ";
+    sql += QStringLiteral("SELECT ");
     for (size_t i = 0; i < columns_.size(); ++i)
     {
         const auto& column = columns_[i];
         sql += column.columnName_;
-        sql += (i < columns_.size() - 1 ? ", " : " ");
+        sql += (i < columns_.size() - 1 ? QStringLiteral(", ")
+                                        : QStringLiteral(" "));
     }
 
     sql += " FROM " + tableName_ + " LIMIT 1;";
 
     return sql;
 }
-
-const QVector<QString>& DatabaseConfig::getColumnNames() const
+QVector<QString> DatabaseConfig::getColumnNames() const
 {
-    static QVector<QString> columnNames{};
-    if (columnNames.empty())
-    {
-        for (const auto& column : columns_)
-        {
-            columnNames.push_back(column.columnName_);
-        }
+    QVector<QString> columnNames{};
 
-        // Primary key column not needed.
-        columnNames.pop_front();
-    }
+    // Transform from second element as primary key column is not needed.
+    std::transform(columns_.cbegin() + 1, columns_.cend(),
+                   std::back_inserter(columnNames),
+                   [](const SqlColumn& column) { return column.columnName_; });
 
     return columnNames;
 }
 
-const QVector<QString>& DatabaseConfig::getUserFriendlyColumnNames() const
+QVector<QString> DatabaseConfig::getUserFriendlyColumnNames() const
 {
-    static QVector<QString> userFriendlyColumnNames{};
-    if (userFriendlyColumnNames.empty())
-    {
-        for (const auto& column : columns_)
-        {
-            userFriendlyColumnNames.push_back(column.userFriendlyColumnName_);
-        }
+    QVector<QString> userFriendlyColumnNames{};
 
-        // Primary key column not needed.
-        userFriendlyColumnNames.pop_front();
-    }
+    // Transform from second element as primary key column is not needed.
+    std::transform(columns_.cbegin() + 1, columns_.cend(),
+                   std::back_inserter(userFriendlyColumnNames),
+                   [](const SqlColumn& column)
+                   { return column.userFriendlyColumnName_; });
 
     return userFriendlyColumnNames;
 }

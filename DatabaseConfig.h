@@ -14,9 +14,9 @@ public:
 
     QString getCheckTableSql() const;
 
-    const QVector<QString>& getColumnNames() const;
+    QVector<QString> getColumnNames() const;
 
-    const QVector<QString>& getUserFriendlyColumnNames() const;
+    QVector<QString> getUserFriendlyColumnNames() const;
 
     enum class SqLite3ColumnType
     {
