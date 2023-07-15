@@ -2,6 +2,8 @@
 
 #include <QDialog>
 
+#include "ui_AddRowDialog.h"
+
 namespace Ui
 {
 class AddRowDialog;
@@ -13,10 +15,9 @@ class AddRowDialog : public QDialog
 public:
     explicit AddRowDialog(const QVector<QString>& userFriendlyColumnNames,
                           QWidget* parent = nullptr);
-    ~AddRowDialog() override;
 
     QVector<QVariant> getUserInputData() const;
 
 private:
-    Ui::AddRowDialog* ui;
+    std::unique_ptr<Ui::AddRowDialog> ui_;
 };
