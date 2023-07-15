@@ -6,19 +6,19 @@ TARGET = SQLiteBrowser
 TEMPLATE = app
 
 SOURCES += \
-    main.cpp \
-    MainWindow.cpp \
-    AddRowDialog.cpp \
-    DatabaseConfig.cpp
+    src/main.cpp \
+    src/MainWindow.cpp \
+    src/AddRowDialog.cpp \
+    src/DatabaseConfig.cpp
 
 HEADERS += \
-    MainWindow.h \
-    AddRowDialog.h \
-    DatabaseConfig.h
+    src/MainWindow.h \
+    src/AddRowDialog.h \
+    src/DatabaseConfig.h
 
 FORMS += \
-    MainWindow.ui \
-    AddRowDialog.ui
+    src/MainWindow.ui \
+    src/AddRowDialog.ui
 
 RESOURCES += \
     icons.qrc
