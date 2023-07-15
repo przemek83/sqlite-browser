@@ -17,8 +17,8 @@ MainWindow::MainWindow(DatabaseConfig databaseConfig, QWidget* parent)
 {
     ui->setupUi(this);
 
-    connect(ui->actionExit, SIGNAL(triggered(bool)),
-            QCoreApplication::instance(), SLOT(quit()));
+    connect(ui->actionExit, &QAction::triggered, QCoreApplication::instance(),
+            &QCoreApplication::quit);
 
     QStyle* style{QApplication::style()};
     ui->actionNew->setIcon(style->standardIcon(QStyle::SP_FileDialogNewFolder));
@@ -90,8 +90,8 @@ void MainWindow::prepareView(QSqlDatabase& database)
     ui->tableView->hideColumn(0);
 
     connect(ui->tableView->selectionModel(),
-            SIGNAL(currentRowChanged(QModelIndex, QModelIndex)), this,
-            SLOT(rowSelectionChanged(QModelIndex, QModelIndex)));
+            &QItemSelectionModel::currentRowChanged, this,
+            &MainWindow::rowSelectionChanged);
 }
 
 void MainWindow::openDatabaseFile(const QString& databaseFilePath)
@@ -101,7 +101,7 @@ void MainWindow::openDatabaseFile(const QString& databaseFilePath)
 
     closeCurrentDatabase();
 
-    QSqlDatabase database{QSqlDatabase::addDatabase("QSQLITE")};
+    QSqlDatabase database{QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"))};
     database.setDatabaseName(databaseFilePath);
 
     if (!database.open())
@@ -130,9 +130,9 @@ void MainWindow::openDatabaseFile(const QString& databaseFilePath)
 
 void MainWindow::on_actionNew_triggered()
 {
-    const QString newDatabasePath{
-        QFileDialog::getSaveFileName(this, "Create new DB file", "",
-                                     tr("SQLiteDB (*.sqlite3);; All (*.*))"))};
+    const QString newDatabasePath{QFileDialog::getSaveFileName(
+        this, QStringLiteral("Create new DB file"), QStringLiteral(""),
+        tr("SQLiteDB (*.sqlite3);; All (*.*))"))};
 
     openDatabaseFile(newDatabasePath);
 }
@@ -140,7 +140,8 @@ void MainWindow::on_actionNew_triggered()
 void MainWindow::on_actionOpen_triggered()
 {
     const QString databasePath{QFileDialog::getOpenFileName(
-        this, "Open DB file", "", tr("SQLiteDB (*.sqlite3);; All (*.*))"))};
+        this, QStringLiteral("Open DB file"), QStringLiteral(""),
+        tr("SQLiteDB (*.sqlite3);; All (*.*))"))};
 
     openDatabaseFile(databasePath);
 }
