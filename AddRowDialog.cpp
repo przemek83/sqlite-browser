@@ -10,18 +10,13 @@ AddRowDialog::AddRowDialog(const QVector<QString>& userFriendlyColumnNames,
 
     for (int i = 0; i < ui_->gridLayout->rowCount(); ++i)
     {
-        QWidget* itemWidget = ui_->gridLayout->itemAtPosition(i, 0)->widget();
+        QWidget* itemWidget{ui_->gridLayout->itemAtPosition(i, 0)->widget()};
         dynamic_cast<QLabel*>(itemWidget)->setText(userFriendlyColumnNames[i]);
     }
 }
 
 QVector<QVariant> AddRowDialog::getUserInputData() const
 {
-    QVector<QVariant> userData;
-
-    userData.append(ui_->firstNameLineEdit->text());
-    userData.append(ui_->lastNameLineEdit->text());
-    userData.append(ui_->ageSpinBox->value());
-
-    return userData;
+    return {ui_->firstNameLineEdit->text(), ui_->lastNameLineEdit->text(),
+            ui_->ageSpinBox->value()};
 }

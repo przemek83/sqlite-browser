@@ -5,10 +5,10 @@
 
 int main(int argc, char** argv)
 {
-    const QApplication a(argc, argv);
+    const QApplication a{argc, argv};
 
     DatabaseConfig config;
-    MainWindow w(std::move(config));
+    MainWindow w{std::move(config)};
     w.show();
 
     return QApplication::exec();

@@ -6,17 +6,14 @@ QString DatabaseConfig::getTableName() const { return tableName_; }
 
 QString DatabaseConfig::getCreateTableSql() const
 {
-    QString sql;
-    sql += "CREATE TABLE " + tableName_ + " (";
+    QString sql{"CREATE TABLE " + tableName_ + " ("};
     for (size_t i = 0; i < columns_.size(); ++i)
     {
-        const auto& column = columns_[i];
+        const auto& column{columns_[i]};
         sql += column.columnName_ + " ";
         sql += typeToStringMap_[column.type_];
         if (column.primaryKey_)
-        {
             sql += QStringLiteral(" PRIMARY KEY");
-        }
 
         sql += (i < columns_.size() - 1 ? QStringLiteral(", ")
                                         : QStringLiteral(");"));
@@ -27,11 +24,10 @@ QString DatabaseConfig::getCreateTableSql() const
 
 QString DatabaseConfig::getCheckTableSql() const
 {
-    QString sql;
-    sql += QStringLiteral("SELECT ");
+    QString sql{QStringLiteral("SELECT ")};
     for (size_t i = 0; i < columns_.size(); ++i)
     {
-        const auto& column = columns_[i];
+        const auto& column{columns_[i]};
         sql += column.columnName_;
         sql += (i < columns_.size() - 1 ? QStringLiteral(", ")
                                         : QStringLiteral(" "));

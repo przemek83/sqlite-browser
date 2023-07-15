@@ -18,7 +18,7 @@ public:
 
     QVector<QString> getUserFriendlyColumnNames() const;
 
-    enum class SqLite3ColumnType
+    enum class DbColumnType
     {
         INTEGER,
         REAL,
@@ -33,23 +33,21 @@ private:
 
         const QString userFriendlyColumnName_;
 
-        const SqLite3ColumnType type_;
+        const DbColumnType type_;
 
         const bool primaryKey_;
     };
 
-    const QMap<SqLite3ColumnType, QString> typeToStringMap_{
-        {DatabaseConfig::SqLite3ColumnType::INTEGER, "INTEGER"},
-        {DatabaseConfig::SqLite3ColumnType::REAL, "REAL"},
-        {DatabaseConfig::SqLite3ColumnType::TEXT, "VARCHAR(50)"}};
+    const QMap<DbColumnType, QString> typeToStringMap_{
+        {DatabaseConfig::DbColumnType::INTEGER, "INTEGER"},
+        {DatabaseConfig::DbColumnType::REAL, "REAL"},
+        {DatabaseConfig::DbColumnType::TEXT, "VARCHAR(50)"}};
 
     const QString tableName_{QStringLiteral("client")};
 
     const std::vector<SqlColumn> columns_{
-        {"id", "id", DatabaseConfig::SqLite3ColumnType::INTEGER, true},
-        {"firstname", "First name", DatabaseConfig::SqLite3ColumnType::TEXT,
-         false},
-        {"lastname", "Last name", DatabaseConfig::SqLite3ColumnType::TEXT,
-         false},
-        {"age", "Age", DatabaseConfig::SqLite3ColumnType::INTEGER, false}};
+        {"id", "id", DatabaseConfig::DbColumnType::INTEGER, true},
+        {"firstname", "First name", DatabaseConfig::DbColumnType::TEXT, false},
+        {"lastname", "Last name", DatabaseConfig::DbColumnType::TEXT, false},
+        {"age", "Age", DatabaseConfig::DbColumnType::INTEGER, false}};
 };
