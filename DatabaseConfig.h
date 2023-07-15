@@ -8,16 +8,6 @@
 class DatabaseConfig
 {
 public:
-    DatabaseConfig() = default;
-
-    ~DatabaseConfig() = default;
-
-    DatabaseConfig& operator=(const DatabaseConfig& other) = delete;
-    DatabaseConfig(const DatabaseConfig& other) = delete;
-
-    DatabaseConfig& operator=(DatabaseConfig&& other) = default;
-    DatabaseConfig(DatabaseConfig&& other) = default;
-
     QString getTableName() const;
 
     QString getCreateTableSql() const;
@@ -48,9 +38,18 @@ private:
         const bool primaryKey_;
     };
 
-    static const QMap<SqLite3ColumnType, QString> typeToStringMap_;
+    const QMap<SqLite3ColumnType, QString> typeToStringMap_{
+        {DatabaseConfig::SqLite3ColumnType::INTEGER, "INTEGER"},
+        {DatabaseConfig::SqLite3ColumnType::REAL, "REAL"},
+        {DatabaseConfig::SqLite3ColumnType::TEXT, "VARCHAR(50)"}};
 
-    const QString tableName_{"client"};
+    const QString tableName_{QStringLiteral("client")};
 
-    static const std::vector<SqlColumn> columns_;
+    const std::vector<SqlColumn> columns_{
+        {"id", "id", DatabaseConfig::SqLite3ColumnType::INTEGER, true},
+        {"firstname", "First name", DatabaseConfig::SqLite3ColumnType::TEXT,
+         false},
+        {"lastname", "Last name", DatabaseConfig::SqLite3ColumnType::TEXT,
+         false},
+        {"age", "Age", DatabaseConfig::SqLite3ColumnType::INTEGER, false}};
 };

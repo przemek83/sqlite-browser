@@ -2,18 +2,6 @@
 
 #include <QVector>
 
-const QMap<DatabaseConfig::SqLite3ColumnType, QString>
-    DatabaseConfig::typeToStringMap_{
-        {DatabaseConfig::SqLite3ColumnType::INTEGER, "INTEGER"},
-        {DatabaseConfig::SqLite3ColumnType::REAL, "REAL"},
-        {DatabaseConfig::SqLite3ColumnType::TEXT, "VARCHAR(50)"}};
-
-const std::vector<DatabaseConfig::SqlColumn> DatabaseConfig::columns_{
-    {"id", "id", DatabaseConfig::SqLite3ColumnType::INTEGER, true},
-    {"firstname", "First name", DatabaseConfig::SqLite3ColumnType::TEXT, false},
-    {"lastname", "Last name", DatabaseConfig::SqLite3ColumnType::TEXT, false},
-    {"age", "Age", DatabaseConfig::SqLite3ColumnType::INTEGER, false}};
-
 QString DatabaseConfig::getTableName() const { return tableName_; }
 
 QString DatabaseConfig::getCreateTableSql() const
