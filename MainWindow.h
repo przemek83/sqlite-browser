@@ -21,6 +21,12 @@ public:
 
     ~MainWindow() override;
 
+    MainWindow& operator=(const MainWindow& other) = delete;
+    MainWindow(const MainWindow& other) = delete;
+
+    MainWindow& operator=(MainWindow&& other) = delete;
+    MainWindow(MainWindow&& other) = delete;
+
 private:
     void closeCurrentDatabase();
 
