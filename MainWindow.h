@@ -7,7 +7,7 @@
 namespace Ui
 {
 class MainWindow;
-}
+}  // namespace Ui
 
 class QSqlTableModel;
 class QSqlDatabase;

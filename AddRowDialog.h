@@ -5,7 +5,7 @@
 namespace Ui
 {
 class AddRowDialog;
-}
+}  // namespace Ui
 
 class AddRowDialog : public QDialog
 {
