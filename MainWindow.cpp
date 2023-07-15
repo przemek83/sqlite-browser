@@ -20,6 +20,16 @@ MainWindow::MainWindow(DatabaseConfig databaseConfig, QWidget* parent)
     connect(ui->actionExit, &QAction::triggered, QCoreApplication::instance(),
             &QCoreApplication::quit);
 
+    connect(ui->actionNew, &QAction::triggered, this, &MainWindow::createNewDb);
+
+    connect(ui->actionOpen, &QAction::triggered, this,
+            &MainWindow::openExistingDb);
+
+    connect(ui->actionDelete_row, &QAction::triggered, this,
+            &MainWindow::deleteRow);
+
+    connect(ui->actionAdd_row, &QAction::triggered, this, &MainWindow::addRow);
+
     QStyle* style{QApplication::style()};
     ui->actionNew->setIcon(style->standardIcon(QStyle::SP_FileDialogNewFolder));
     ui->actionOpen->setIcon(style->standardIcon(QStyle::SP_DialogOpenButton));
@@ -54,7 +64,7 @@ QSqlTableModel* MainWindow::createNewModel(QSqlDatabase& database) const
     model->setTable(databaseConfig_.getTableName());
     model->setEditStrategy(QSqlTableModel::OnFieldChange);
 
-    const QVector<QString>& userFriendlyColumnNames{
+    const QVector<QString> userFriendlyColumnNames{
         databaseConfig_.getUserFriendlyColumnNames()};
     for (int i = 0; i < userFriendlyColumnNames.size(); ++i)
     {
@@ -128,7 +138,7 @@ void MainWindow::openDatabaseFile(const QString& databaseFilePath)
                                "...");
 }
 
-void MainWindow::on_actionNew_triggered()
+void MainWindow::createNewDb()
 {
     const QString newDatabasePath{QFileDialog::getSaveFileName(
         this, QStringLiteral("Create new DB file"), QStringLiteral(""),
@@ -137,7 +147,7 @@ void MainWindow::on_actionNew_triggered()
     openDatabaseFile(newDatabasePath);
 }
 
-void MainWindow::on_actionOpen_triggered()
+void MainWindow::openExistingDb()
 {
     const QString databasePath{QFileDialog::getOpenFileName(
         this, QStringLiteral("Open DB file"), QStringLiteral(""),
@@ -152,7 +162,7 @@ void MainWindow::rowSelectionChanged(const QModelIndex& current,
     ui->actionDelete_row->setEnabled(current.isValid());
 }
 
-void MainWindow::on_actionDelete_row_triggered()
+void MainWindow::deleteRow()
 {
     auto* model{qobject_cast<QSqlTableModel*>(ui->tableView->model())};
     const int rowToBeRemove{ui->tableView->currentIndex().row()};
@@ -165,7 +175,7 @@ void MainWindow::on_actionDelete_row_triggered()
     ui->actionDelete_row->setEnabled(false);
 }
 
-void MainWindow::on_actionAdd_row_triggered()
+void MainWindow::addRow()
 {
     AddRowDialog addRowDialog(databaseConfig_.getUserFriendlyColumnNames(),
                               this);
@@ -175,7 +185,7 @@ void MainWindow::on_actionAdd_row_triggered()
     auto* model{qobject_cast<QSqlTableModel*>(ui->tableView->model())};
     QSqlRecord recordToInsert{model->record()};
 
-    const QVector<QString>& columnNames{databaseConfig_.getColumnNames()};
+    const QVector<QString> columnNames{databaseConfig_.getColumnNames()};
     const QVector<QVariant> userInputData(addRowDialog.getUserInputData());
 
     Q_ASSERT(columnNames.size() == userInputData.size());

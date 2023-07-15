@@ -43,14 +43,14 @@ private:
     DatabaseConfig databaseConfig_;
 
 private slots:
-    void on_actionNew_triggered();
+    void createNewDb();
 
-    void on_actionOpen_triggered();
+    void openExistingDb();
 
     void rowSelectionChanged(const QModelIndex& current,
                              const QModelIndex& previous);
 
-    void on_actionDelete_row_triggered();
+    void deleteRow();
 
-    void on_actionAdd_row_triggered();
+    void addRow();
 };
