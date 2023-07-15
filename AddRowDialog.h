@@ -13,7 +13,7 @@ class AddRowDialog : public QDialog
 public:
     explicit AddRowDialog(const QVector<QString>& userFriendlyColumnNames,
                           QWidget* parent = nullptr);
-    virtual ~AddRowDialog();
+    ~AddRowDialog() override;
 
     QVector<QVariant> getUserInputData() const;
 

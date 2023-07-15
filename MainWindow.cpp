@@ -20,7 +20,7 @@ MainWindow::MainWindow(DatabaseConfig databaseConfig, QWidget* parent)
     connect(ui->actionExit, SIGNAL(triggered(bool)),
             QCoreApplication::instance(), SLOT(quit()));
 
-    QStyle* style = QApplication::style();
+    QStyle* style{QApplication::style()};
     ui->actionNew->setIcon(style->standardIcon(QStyle::SP_FileDialogNewFolder));
     ui->actionOpen->setIcon(style->standardIcon(QStyle::SP_DialogOpenButton));
     ui->actionExit->setIcon(style->standardIcon(QStyle::SP_DialogCloseButton));
@@ -35,14 +35,13 @@ MainWindow::~MainWindow()
 
 void MainWindow::closeCurrentDatabase()
 {
-    QAbstractItemModel* currentModel = ui->tableView->model();
+    QAbstractItemModel* currentModel{ui->tableView->model()};
     ui->tableView->setModel(nullptr);
     delete currentModel;
 
     QString currentDatabasePath;
     {
-        QSqlDatabase database = QSqlDatabase::database();
-
+        QSqlDatabase database{QSqlDatabase::database()};
         currentDatabasePath = database.connectionName();
         database.close();
     }
@@ -51,12 +50,12 @@ void MainWindow::closeCurrentDatabase()
 
 QSqlTableModel* MainWindow::createNewModel(QSqlDatabase& database) const
 {
-    QSqlTableModel* model = new QSqlTableModel(ui->tableView, database);
+    QSqlTableModel* model{new QSqlTableModel(ui->tableView, database)};
     model->setTable(databaseConfig_.getTableName());
     model->setEditStrategy(QSqlTableModel::OnFieldChange);
 
-    const QVector<QString>& userFriendlyColumnNames =
-        databaseConfig_.getUserFriendlyColumnNames();
+    const QVector<QString>& userFriendlyColumnNames{
+        databaseConfig_.getUserFriendlyColumnNames()};
     for (int i = 0; i < userFriendlyColumnNames.size(); ++i)
     {
         // Skip primary key column (column 0).
@@ -71,14 +70,12 @@ QSqlTableModel* MainWindow::createNewModel(QSqlDatabase& database) const
 bool MainWindow::databaseStructureOk(QSqlDatabase& database) const
 {
     QSqlQuery query(database);
-    bool result = query.exec(databaseConfig_.getCheckTableSql());
+    bool result{query.exec(databaseConfig_.getCheckTableSql())};
     if (!result)
     {
         result = query.exec(databaseConfig_.getCreateTableSql());
         if (!result)
-        {
             return false;
-        }
     }
 
     return true;
@@ -100,13 +97,11 @@ void MainWindow::prepareView(QSqlDatabase& database)
 void MainWindow::openDatabaseFile(const QString& databaseFilePath)
 {
     if (databaseFilePath.isNull())
-    {
         return;
-    }
 
     closeCurrentDatabase();
 
-    QSqlDatabase database = QSqlDatabase::addDatabase("QSQLITE");
+    QSqlDatabase database{QSqlDatabase::addDatabase("QSQLITE")};
     database.setDatabaseName(databaseFilePath);
 
     if (!database.open())
@@ -135,17 +130,17 @@ void MainWindow::openDatabaseFile(const QString& databaseFilePath)
 
 void MainWindow::on_actionNew_triggered()
 {
-    QString newDatabasePath =
+    const QString newDatabasePath{
         QFileDialog::getSaveFileName(this, "Create new DB file", "",
-                                     tr("SQLiteDB (*.sqlite3);; All (*.*))"));
+                                     tr("SQLiteDB (*.sqlite3);; All (*.*))"))};
 
     openDatabaseFile(newDatabasePath);
 }
 
 void MainWindow::on_actionOpen_triggered()
 {
-    QString databasePath = QFileDialog::getOpenFileName(
-        this, "Open DB file", "", tr("SQLiteDB (*.sqlite3);; All (*.*))"));
+    const QString databasePath{QFileDialog::getOpenFileName(
+        this, "Open DB file", "", tr("SQLiteDB (*.sqlite3);; All (*.*))"))};
 
     openDatabaseFile(databasePath);
 }
@@ -158,13 +153,11 @@ void MainWindow::rowSelectionChanged(const QModelIndex& current,
 
 void MainWindow::on_actionDelete_row_triggered()
 {
-    auto model = dynamic_cast<QSqlTableModel*>(ui->tableView->model());
-    int rowToBeRemove = ui->tableView->currentIndex().row();
+    auto* model{qobject_cast<QSqlTableModel*>(ui->tableView->model())};
+    const int rowToBeRemove{ui->tableView->currentIndex().row()};
 
     if (model->removeRow(rowToBeRemove))
-    {
         ui->statusBar->showMessage(tr("Row removed."));
-    }
 
     model->select();
 
@@ -176,22 +169,20 @@ void MainWindow::on_actionAdd_row_triggered()
     AddRowDialog addRowDialog(databaseConfig_.getUserFriendlyColumnNames(),
                               this);
     if (QDialog::Rejected == addRowDialog.exec())
-    {
         return;
-    }
 
-    auto model = dynamic_cast<QSqlTableModel*>(ui->tableView->model());
-    QSqlRecord recordToInsert = model->record();
+    auto* model{qobject_cast<QSqlTableModel*>(ui->tableView->model())};
+    QSqlRecord recordToInsert{model->record()};
 
-    const QVector<QString>& columnNames = databaseConfig_.getColumnNames();
-    const QVector<QVariant> userInputData = addRowDialog.getUserInputData();
+    const QVector<QString>& columnNames{databaseConfig_.getColumnNames()};
+    const QVector<QVariant> userInputData(addRowDialog.getUserInputData());
 
     Q_ASSERT(columnNames.size() == userInputData.size());
 
     for (int i = 0; i < columnNames.size(); ++i)
     {
-        const QString& columnName = columnNames[i];
-        const QVariant& userInputDataItem = userInputData[i];
+        const QString& columnName{columnNames[i]};
+        const QVariant& userInputDataItem{userInputData[i]};
 
         recordToInsert.setValue(columnName, userInputDataItem);
     }

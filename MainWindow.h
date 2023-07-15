@@ -19,7 +19,7 @@ public:
     explicit MainWindow(DatabaseConfig databaseConfig,
                         QWidget* parent = nullptr);
 
-    virtual ~MainWindow();
+    ~MainWindow() override;
 
 private:
     void closeCurrentDatabase();
