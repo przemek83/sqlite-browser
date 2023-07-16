@@ -1,23 +1,32 @@
-## Screenshots:  
+## Example screenshot  
 ![Alt text](Screenshot1.png?raw=true "")
 ![Alt text](Screenshot2.png?raw=true "")
 
-## Building:  
-Compile using project file sqlite-browser.pro file (from QtCreator IDE or cmd).  
+## Description
+Small tool for the creation and edition of SQLite DB files. Created originally as a coding assignment.
 
-## Files:  
-main.cpp - main file :)  
-MainWindow.[h|cpp|ui] - Main window with ui file. Most of the stuff happens here ;)  
-*.png - Some standard Qt icons did not fit. I've added 2 simple one to fill the gap.  
-icons.qrc - Qt resources file with icons location.  
-DatabaseConfig.[h|cpp]- File with all needed info for creation of DB structure + user friendly names.  
-AddRowDialog.[h|cpp|ui] - Dialog window used whew user want to add new record in DB.  
+## Used tools and libs
+| Tool |  Windows | Lubuntu |
+| --- | --- | --- |
+| OS version | 10 22H2 | 22.04 |
+| GCC | 11.2.0 | ? |
+| CMake | 3.25.0 | 3.25.0 |
+| Git | 2.38.1 | 2.34.1 |
+| Qt | 6.5.1 | ? |
+| Qt Creator | 9.0.0 | 9.0.0 |
+| VS Code | 1.80 | ? |
 
-## Additional info  
-Potential further improvements:  
-1) Make fully generic creation of DB and use of things related to database structure.  
-2) Use json file as DB structure definition (would fill DatabaseConfig class).  
+## Compilation and installation
+Use CMake directly or any IDE supporting CMake projects. CMake **should**:
+- configure everything automatically, 
+- compile sqlite-browser and link binaries.  
 
-I'm not fully happy about:  
-1) Point 1 above.  
-2) Got some problems with focus. There still might be scenarios when current item is set on table view but row is not selected (delete row action active because of that).  
+This is, of course, a happy path... 
+
+## Licensing
+Tankble is published under an MIT license. 
+
+## Potential further improvements
+1) Make the creation and usage of database structures fully generic.  
+2) Use a JSON file as a DB structure definition, which would fill the DatabaseConfig class.  
+3) Fix problems with focus. There are still scenarios when the current item is set on table view, but a row is not selected. It results in the delete row action being active.  
