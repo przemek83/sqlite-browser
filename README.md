@@ -9,12 +9,12 @@ Small tool for the creation and edition of SQLite DB files. Created originally a
 | Tool |  Windows | Lubuntu |
 | --- | --- | --- |
 | OS version | 10 22H2 | 22.04 |
-| GCC | 11.2.0 | ? |
+| GCC | 11.2.0 | 11.3.0 |
 | CMake | 3.25.0 | 3.25.0 |
 | Git | 2.38.1 | 2.34.1 |
-| Qt | 6.5.1 | ? |
+| Qt | 6.5.1 | 6.5.1 |
 | Qt Creator | 9.0.0 | 9.0.0 |
-| VS Code | 1.80 | ? |
+| VS Code | 1.80 | - |
 
 ## Compilation and installation
 Use CMake directly or any IDE supporting CMake projects. CMake **should**:
