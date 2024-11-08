@@ -36,5 +36,5 @@ jobs:
 
       - name: Diagnostic
         run: |
-          ldd /home/runner/work/sqlite-browser/sqlite-browser/build/Testing/sqlite-browser-test
+          ldd /home/runner/work/sqlite-browser/sqlite-browser/build/test/sqlite-browser-test
           cat /home/runner/work/sqlite-browser/sqlite-browser/build/Testing/Temporary/LastTest.log
