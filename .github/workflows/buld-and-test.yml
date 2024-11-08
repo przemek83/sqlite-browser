@@ -32,3 +32,8 @@ jobs:
       - name: Run tests
         working-directory: ${{ github.workspace }}/build
         run: ctest -C ${{ env.BUILD_TYPE }} -E 'Benchmark'
+
+      - name: Diagnostic
+        run: |
+          ldd /home/runner/work/sqlite-browser/sqlite-browser/build/Testing/sqlite-browser-test
+          cat /home/runner/work/sqlite-browser/sqlite-browser/build/Testing/Temporary/LastTest.log
