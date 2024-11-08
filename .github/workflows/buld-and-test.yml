@@ -39,6 +39,12 @@ jobs:
           export QT_PLUGIN_PATH=$QT_ROOT_DIR/plugins
           ctest -C ${{ env.BUILD_TYPE }} -E 'Benchmark'
 
+      - name: Run tests directly
+        continue-on-error: true
+        working-directory: ${{ github.workspace }}/build
+        run: |
+          /home/runner/work/sqlite-browser/sqlite-browser/build/test/sqlite-browser-test
+
       - name: Diagnostic
         run: |
           echo $QT_ROOT_DIR
