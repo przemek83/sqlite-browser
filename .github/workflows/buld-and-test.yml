@@ -36,6 +36,7 @@ jobs:
         continue-on-error: true
         working-directory: ${{ github.workspace }}/build
         run: |
+          export QT_DEBUG_PLUGINS=1
           export QT_PLUGIN_PATH=$QT_ROOT_DIR/plugins
           ctest -C ${{ env.BUILD_TYPE }} -E 'Benchmark'
 
