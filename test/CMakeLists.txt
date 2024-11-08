@@ -7,6 +7,6 @@ set(${PROJECT_TEST}_SOURCES
 )
 
 add_executable(${PROJECT_TEST} ${${PROJECT_TEST}_SOURCES})
-target_link_libraries(${PROJECT_TEST} PRIVATE ${PROJECT_NAME}-lib Qt6::Core Qt6::Widgets Qt6::Test)
+target_link_libraries(${PROJECT_TEST} PRIVATE ${PROJECT_NAME}-lib Qt6::Test)
 
 add_test(NAME ${PROJECT_TEST} COMMAND ${PROJECT_TEST})
