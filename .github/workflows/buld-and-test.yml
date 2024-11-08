@@ -20,11 +20,7 @@ jobs:
           host:         linux
           target:       desktop
           arch:         gcc_64
-          # dir:          ${{ runner.temp }}
           setup-python: false
-
-      # - name: Install dependencies on Linux
-      #   run: sudo apt-get install -qq libglu1-mesa-dev libx11-xcb-dev '^libxcb*'
 
       - name: Configure CMake
         run: cmake -B ${{ github.workspace }}/build -DCMAKE_BUILD_TYPE=${{ env.BUILD_TYPE }}
@@ -33,21 +29,5 @@ jobs:
         run: cmake --build ${{ github.workspace }}/build --config ${{ env.BUILD_TYPE }} --parallel 4
 
       - name: Run tests
-        continue-on-error: true
         working-directory: ${{ github.workspace }}/build
-        run: |
-          ctest -C ${{ env.BUILD_TYPE }} -E 'Benchmark'
-
-      - name: Run tests directly
-        continue-on-error: true
-        working-directory: ${{ github.workspace }}/build
-        run: |
-          /home/runner/work/sqlite-browser/sqlite-browser/build/test/sqlite-browser-test
-
-      - name: Diagnostic
-        run: |
-          echo $QT_ROOT_DIR
-          ls $QT_ROOT_DIR
-          ls $QT_PLUGIN_PATH
-          ldd /home/runner/work/sqlite-browser/sqlite-browser/build/test/sqlite-browser-test
-          cat /home/runner/work/sqlite-browser/sqlite-browser/build/Testing/Temporary/LastTest.log
+        run: ctest -C ${{ env.BUILD_TYPE }} -E 'Benchmark'
