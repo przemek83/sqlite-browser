@@ -1,7 +1,7 @@
 #include <QApplication>
-#include "MainWindow.h"
 
 #include "DatabaseConfig.h"
+#include "MainWindow.h"
 
 int main(int argc, char** argv)
 {
