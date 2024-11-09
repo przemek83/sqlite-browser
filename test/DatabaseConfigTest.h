@@ -8,4 +8,6 @@ class DatabaseConfigTest : public QObject
 
 private slots:
     void testTableName() const;
+
+    void testCreateTableSql() const;
 };
