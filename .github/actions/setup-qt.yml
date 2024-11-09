@@ -1,0 +1,14 @@
+name: Setup Qt
+description: Install Qt on machine
+runs:
+  using: composite
+  steps:
+    - name: Install Qt
+      uses: jurplel/install-qt-action@v4
+      with:
+        version:      6.5.*
+        host:         linux
+        target:       desktop
+        arch:         gcc_64
+        setup-python: false
+   
