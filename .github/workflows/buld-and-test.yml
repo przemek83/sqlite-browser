@@ -9,7 +9,8 @@ jobs:
       platform: ubuntu-latest
       use-qt: true
 
-#   windows:
-#     uses: przemek83/common/.github/workflows/build-and-test-cpp.yml@main
-#     with:
-#       platform: windows-latest
+  windows:
+    uses: przemek83/common/.github/workflows/build-and-test-cpp.yml@main
+    with:
+      platform: windows-latest
+      use-qt: true
