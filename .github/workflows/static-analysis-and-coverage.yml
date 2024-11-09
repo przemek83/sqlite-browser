@@ -16,6 +16,9 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: Install Dependencies
+        run: sudo apt-get install -y gcovr
+
       - name: Install Qt
         uses: jurplel/install-qt-action@v4
         with:
