@@ -1,3 +1,12 @@
+[![Build & test](https://github.com/przemek83/sqlite-browser/actions/workflows/buld-and-test.yml/badge.svg)](https://github.com/przemek83/sqlite-browser/actions/workflows/buld-and-test.yml)
+[![codecov](https://codecov.io/github/przemek83/sqlite-browser/graph/badge.svg?token=K1SR2JA727)](https://codecov.io/github/przemek83/sqlite-browser)
+
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=przemek83_sqlite-browser&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=przemek83_sqlite-browser)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=przemek83_sqlite-browser&metric=bugs)](https://sonarcloud.io/summary/new_code?id=przemek83_sqlite-browser)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=przemek83_sqlite-browser&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=przemek83_sqlite-browser)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=przemek83_sqlite-browser&metric=coverage)](https://sonarcloud.io/summary/new_code?id=przemek83_sqlite-browser)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=przemek83_sqlite-browser&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=przemek83_sqlite-browser)
+
 ## Example screenshot  
 ![Alt text](Screenshot1.png?raw=true "")
 ![Alt text](Screenshot2.png?raw=true "")
