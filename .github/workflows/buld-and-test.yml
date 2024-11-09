@@ -9,7 +9,6 @@ jobs:
       platform: ubuntu-latest
       use-qt: true
       qt-version: 6.5.*
-      qt-host: linux
 
   windows:
     uses: przemek83/common/.github/workflows/build-and-test-cpp.yml@main
@@ -17,4 +16,3 @@ jobs:
       platform: windows-latest
       use-qt: true
       qt-version: 6.5.*
-      qt-host: windows
