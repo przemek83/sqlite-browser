@@ -8,41 +8,9 @@ on:
   schedule:
     - cron: '29 2 * * 0'
 
-env:
-  QT_VERSION: 6.5.*
-
 jobs:
   analyze:
-    name: Analyze (${{ matrix.language }})
-    runs-on: 'ubuntu-latest'
-    permissions:
-      security-events: write
-      packages: read
-      actions: read
-      contents: read
-
-    strategy:
-      fail-fast: false
-      matrix:
-        include:
-        - language: c-cpp
-          build-mode: autobuild
-    steps:
-    - name: Checkout repository
-      uses: actions/checkout@v4
-
-    - name: Install Qt
-      uses: jurplel/install-qt-action@v4
-      with:
-        version: ${{ env.QT_VERSION }}
-
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
-      with:
-        languages: ${{ matrix.language }}
-        build-mode: ${{ matrix.build-mode }}
-
-    - name: Perform CodeQL Analysis
-      uses: github/codeql-action/analyze@v3
-      with:
-        category: "/language:${{matrix.language}}"
+    uses: przemek83/common/.github/workflows/codeql-cpp.yml@main
+    with:
+      use-qt: true
+      qt-version: 6.5.*
