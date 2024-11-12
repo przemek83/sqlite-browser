@@ -33,7 +33,7 @@ MainWindow::MainWindow(DatabaseConfig databaseConfig, QWidget* parent)
 
     connect(ui_->actionAdd_row, &QAction::triggered, this, &MainWindow::addRow);
 
-    QStyle* style{QApplication::style()};
+    const QStyle* style{QApplication::style()};
     ui_->actionNew->setIcon(
         style->standardIcon(QStyle::SP_FileDialogNewFolder));
     ui_->actionOpen->setIcon(style->standardIcon(QStyle::SP_DialogOpenButton));
