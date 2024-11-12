@@ -79,14 +79,11 @@ QSqlTableModel* MainWindow::createNewModel(const QSqlDatabase& database) const
 bool MainWindow::databaseStructureOk(const QSqlDatabase& database) const
 {
     QSqlQuery query(database);
-    if (bool result{query.exec(databaseConfig_.getCheckTableSql())}; !result)
-    {
-        result = query.exec(databaseConfig_.getCreateTableSql());
-        if (!result)
-            return false;
-    }
+    if (const bool canQueryDb{query.exec(databaseConfig_.getCheckTableSql())};
+        canQueryDb)
+        return true;
 
-    return true;
+    return query.exec(databaseConfig_.getCreateTableSql());
 }
 
 void MainWindow::prepareView(const QSqlDatabase& database)
@@ -163,9 +160,9 @@ void MainWindow::rowSelectionChanged(const QModelIndex& current,
 void MainWindow::deleteRow()
 {
     auto* model{qobject_cast<QSqlTableModel*>(ui_->tableView->model())};
-    const int rowToBeRemove{ui_->tableView->currentIndex().row()};
 
-    if (model->removeRow(rowToBeRemove))
+    if (const int rowToBeRemove{ui_->tableView->currentIndex().row()};
+        model->removeRow(rowToBeRemove))
         ui_->statusBar->showMessage(tr("Row removed."));
 
     model->select();
