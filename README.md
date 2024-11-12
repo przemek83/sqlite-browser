@@ -60,7 +60,7 @@ Totals: 7 passed, 0 failed, 0 skipped, 0 blacklisted, 1ms
 As an alternative, CTest can be used to run tests from the `build/test` directory:
 ```
 $ ctest
-Test project /home/ja/GitHubProjects/sqlite-browser/build/test
+Test project <path>/sqlite-browser/build/test
     Start 1: sqlite-browser-test
 1/1 Test #1: sqlite-browser-test ..............   Passed    0.01 sec
 
