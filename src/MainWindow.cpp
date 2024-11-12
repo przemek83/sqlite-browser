@@ -51,9 +51,8 @@ void MainWindow::reset()
 
 QString MainWindow::closeCurrentDatabase() const
 {
-    QString currentDatabasePath;
     QSqlDatabase database{QSqlDatabase::database()};
-    currentDatabasePath = database.connectionName();
+    QString currentDatabasePath{database.connectionName()};
     database.close();
     return currentDatabasePath;
 }
@@ -140,6 +139,33 @@ void MainWindow::removeCurrentModel()
     ui_->tableView->setModel(nullptr);
 }
 
+std::pair<bool, QVector<QVariant>> MainWindow::getUserInputData()
+{
+    AddRowDialog addRowDialog(databaseConfig_.getUserFriendlyColumnNames(),
+                              this);
+    if (QDialog::Rejected == addRowDialog.exec())
+        return {false, {}};
+
+    return {true, addRowDialog.getUserInputData()};
+}
+
+void MainWindow::prepareRecord(QSqlRecord& record,
+                               const QVector<QVariant>& userData) const
+{
+    const QVector<QString> columnNames{databaseConfig_.getColumnNames()};
+    Q_ASSERT(columnNames.size() == userData.size());
+
+    const auto* model{qobject_cast<QSqlTableModel*>(ui_->tableView->model())};
+    QSqlRecord recordToInsert{model->record()};
+
+    for (int i = 0; i < columnNames.size(); ++i)
+    {
+        const QString& columnName{columnNames[i]};
+        const QVariant& userInputDataItem{userData[i]};
+        record.setValue(columnName, userInputDataItem);
+    }
+}
+
 void MainWindow::createNewDb()
 {
     const QString newDatabasePath{QFileDialog::getSaveFileName(
@@ -179,27 +205,14 @@ void MainWindow::deleteRow()
 
 void MainWindow::addRow()
 {
-    AddRowDialog addRowDialog(databaseConfig_.getUserFriendlyColumnNames(),
-                              this);
-    if (QDialog::Rejected == addRowDialog.exec())
+    auto [success, userInputData]{getUserInputData()};
+    if (!success)
         return;
 
     auto* model{qobject_cast<QSqlTableModel*>(ui_->tableView->model())};
     QSqlRecord recordToInsert{model->record()};
 
-    const QVector<QString> columnNames{databaseConfig_.getColumnNames()};
-    const QVector<QVariant> userInputData(addRowDialog.getUserInputData());
-
-    Q_ASSERT(columnNames.size() == userInputData.size());
-
-    for (int i = 0; i < columnNames.size(); ++i)
-    {
-        const QString& columnName{columnNames[i]};
-        const QVariant& userInputDataItem{userInputData[i]};
-
-        recordToInsert.setValue(columnName, userInputDataItem);
-    }
-
+    prepareRecord(recordToInsert, userInputData);
     model->insertRecord(-1, recordToInsert);
     model->select();
 

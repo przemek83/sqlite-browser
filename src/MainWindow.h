@@ -11,6 +11,7 @@ class MainWindow;
 
 class QSqlTableModel;
 class QSqlDatabase;
+class QSqlRecord;
 
 class MainWindow : public QMainWindow
 {
@@ -35,6 +36,11 @@ private:
     void openDatabaseFile(const QString& databaseFilePath);
 
     void removeCurrentModel();
+
+    std::pair<bool, QVector<QVariant>> getUserInputData();
+
+    void prepareRecord(QSqlRecord& record,
+                       const QVector<QVariant>& userData) const;
 
     std::unique_ptr<Ui::MainWindow> ui_;
 
