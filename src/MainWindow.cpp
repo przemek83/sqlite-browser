@@ -1,5 +1,4 @@
 #include "MainWindow.h"
-#include "ui_MainWindow.h"
 
 #include <QFileDialog>
 #include <QSqlDatabase>
@@ -7,46 +6,46 @@
 #include <QSqlRecord>
 #include <QSqlTableModel>
 #include <QString>
+#include <memory>
+
+#include "ui_MainWindow.h"
 
 #include "AddRowDialog.h"
 
 MainWindow::MainWindow(DatabaseConfig databaseConfig, QWidget* parent)
     : QMainWindow(parent),
-      ui(new Ui::MainWindow),
+      ui_{std::make_unique<Ui::MainWindow>()},
       databaseConfig_(std::move(databaseConfig))
 {
-    ui->setupUi(this);
+    ui_->setupUi(this);
 
-    connect(ui->actionExit, &QAction::triggered, QCoreApplication::instance(),
+    connect(ui_->actionExit, &QAction::triggered, QCoreApplication::instance(),
             &QCoreApplication::quit);
 
-    connect(ui->actionNew, &QAction::triggered, this, &MainWindow::createNewDb);
+    connect(ui_->actionNew, &QAction::triggered, this,
+            &MainWindow::createNewDb);
 
-    connect(ui->actionOpen, &QAction::triggered, this,
+    connect(ui_->actionOpen, &QAction::triggered, this,
             &MainWindow::openExistingDb);
 
-    connect(ui->actionDelete_row, &QAction::triggered, this,
+    connect(ui_->actionDelete_row, &QAction::triggered, this,
             &MainWindow::deleteRow);
 
-    connect(ui->actionAdd_row, &QAction::triggered, this, &MainWindow::addRow);
+    connect(ui_->actionAdd_row, &QAction::triggered, this, &MainWindow::addRow);
 
     QStyle* style{QApplication::style()};
-    ui->actionNew->setIcon(style->standardIcon(QStyle::SP_FileDialogNewFolder));
-    ui->actionOpen->setIcon(style->standardIcon(QStyle::SP_DialogOpenButton));
-    ui->actionExit->setIcon(style->standardIcon(QStyle::SP_DialogCloseButton));
+    ui_->actionNew->setIcon(
+        style->standardIcon(QStyle::SP_FileDialogNewFolder));
+    ui_->actionOpen->setIcon(style->standardIcon(QStyle::SP_DialogOpenButton));
+    ui_->actionExit->setIcon(style->standardIcon(QStyle::SP_DialogCloseButton));
 }
 
-MainWindow::~MainWindow()
-{
-    closeCurrentDatabase();
-
-    delete ui;
-}
+MainWindow::~MainWindow() { closeCurrentDatabase(); }
 
 void MainWindow::closeCurrentDatabase()
 {
-    QAbstractItemModel* currentModel{ui->tableView->model()};
-    ui->tableView->setModel(nullptr);
+    QAbstractItemModel* currentModel{ui_->tableView->model()};
+    ui_->tableView->setModel(nullptr);
     delete currentModel;
 
     QString currentDatabasePath;
@@ -60,7 +59,7 @@ void MainWindow::closeCurrentDatabase()
 
 QSqlTableModel* MainWindow::createNewModel(QSqlDatabase& database) const
 {
-    QSqlTableModel* model{new QSqlTableModel(ui->tableView, database)};
+    QSqlTableModel* model{new QSqlTableModel(ui_->tableView, database)};
     model->setTable(databaseConfig_.getTableName());
     model->setEditStrategy(QSqlTableModel::OnFieldChange);
 
@@ -93,13 +92,13 @@ bool MainWindow::databaseStructureOk(QSqlDatabase& database) const
 
 void MainWindow::prepareView(QSqlDatabase& database)
 {
-    ui->tableView->clearFocus();
+    ui_->tableView->clearFocus();
 
-    ui->tableView->setModel(createNewModel(database));
+    ui_->tableView->setModel(createNewModel(database));
 
-    ui->tableView->hideColumn(0);
+    ui_->tableView->hideColumn(0);
 
-    connect(ui->tableView->selectionModel(),
+    connect(ui_->tableView->selectionModel(),
             &QItemSelectionModel::currentRowChanged, this,
             &MainWindow::rowSelectionChanged);
 }
@@ -116,26 +115,26 @@ void MainWindow::openDatabaseFile(const QString& databaseFilePath)
 
     if (!database.open())
     {
-        ui->statusBar->showMessage(tr("Cannot open database") + " " +
-                                   databaseFilePath);
+        ui_->statusBar->showMessage(tr("Cannot open database") + " " +
+                                    databaseFilePath);
         return;
     }
 
     if (!databaseStructureOk(database))
     {
-        ui->statusBar->showMessage(tr("Cannot query database") + " " +
-                                   databaseFilePath);
+        ui_->statusBar->showMessage(tr("Cannot query database") + " " +
+                                    databaseFilePath);
         return;
     }
 
     prepareView(database);
 
-    ui->actionAdd_row->setEnabled(true);
+    ui_->actionAdd_row->setEnabled(true);
 
-    ui->actionDelete_row->setEnabled(false);
+    ui_->actionDelete_row->setEnabled(false);
 
-    ui->statusBar->showMessage(tr("Connected to") + " " + databaseFilePath +
-                               "...");
+    ui_->statusBar->showMessage(tr("Connected to") + " " + databaseFilePath +
+                                "...");
 }
 
 void MainWindow::createNewDb()
@@ -159,20 +158,20 @@ void MainWindow::openExistingDb()
 void MainWindow::rowSelectionChanged(const QModelIndex& current,
                                      const QModelIndex& /*previous*/)
 {
-    ui->actionDelete_row->setEnabled(current.isValid());
+    ui_->actionDelete_row->setEnabled(current.isValid());
 }
 
 void MainWindow::deleteRow()
 {
-    auto* model{qobject_cast<QSqlTableModel*>(ui->tableView->model())};
-    const int rowToBeRemove{ui->tableView->currentIndex().row()};
+    auto* model{qobject_cast<QSqlTableModel*>(ui_->tableView->model())};
+    const int rowToBeRemove{ui_->tableView->currentIndex().row()};
 
     if (model->removeRow(rowToBeRemove))
-        ui->statusBar->showMessage(tr("Row removed."));
+        ui_->statusBar->showMessage(tr("Row removed."));
 
     model->select();
 
-    ui->actionDelete_row->setEnabled(false);
+    ui_->actionDelete_row->setEnabled(false);
 }
 
 void MainWindow::addRow()
@@ -182,7 +181,7 @@ void MainWindow::addRow()
     if (QDialog::Rejected == addRowDialog.exec())
         return;
 
-    auto* model{qobject_cast<QSqlTableModel*>(ui->tableView->model())};
+    auto* model{qobject_cast<QSqlTableModel*>(ui_->tableView->model())};
     QSqlRecord recordToInsert{model->record()};
 
     const QVector<QString> columnNames{databaseConfig_.getColumnNames()};
@@ -201,7 +200,7 @@ void MainWindow::addRow()
     model->insertRecord(-1, recordToInsert);
     model->select();
 
-    ui->statusBar->showMessage(tr("Row added."));
+    ui_->statusBar->showMessage(tr("Row added."));
 
-    ui->actionDelete_row->setEnabled(false);
+    ui_->actionDelete_row->setEnabled(false);
 }
