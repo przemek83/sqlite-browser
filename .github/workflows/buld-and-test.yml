@@ -3,16 +3,13 @@ name: Build & test
 on: [push, pull_request]
 
 jobs:
-  linux:
+  build-and-test:
+    strategy:
+      matrix:
+        platform: [ubuntu-latest, windows-latest]
+        qt-version: [6.2.*, 6.5.*, 6.8.*]
     uses: przemek83/common/.github/workflows/build-and-test-cpp.yml@main
     with:
-      platform: ubuntu-latest
+      platform: ${{ matrix.platform }}
       use-qt: true
-      qt-version: 6.5.*
-
-  windows:
-    uses: przemek83/common/.github/workflows/build-and-test-cpp.yml@main
-    with:
-      platform: windows-latest
-      use-qt: true
-      qt-version: 6.5.*
+      qt-version: ${{ matrix.qt-version }}
