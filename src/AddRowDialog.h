@@ -2,8 +2,6 @@
 
 #include <QDialog>
 
-#include "ui_AddRowDialog.h"
-
 namespace Ui
 {
 class AddRowDialog;
@@ -12,7 +10,10 @@ class AddRowDialog;
 class AddRowDialog : public QDialog
 {
     Q_OBJECT
+
 public:
+    ~AddRowDialog() override;
+
     explicit AddRowDialog(const QVector<QString>& userFriendlyColumnNames,
                           QWidget* parent = nullptr);
 

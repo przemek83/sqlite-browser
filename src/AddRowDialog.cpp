@@ -1,5 +1,7 @@
 #include "AddRowDialog.h"
 
+#include "ui_AddRowDialog.h"
+
 AddRowDialog::AddRowDialog(const QVector<QString>& userFriendlyColumnNames,
                            QWidget* parent)
     : QDialog(parent), ui_(std::make_unique<Ui::AddRowDialog>())
@@ -14,6 +16,8 @@ AddRowDialog::AddRowDialog(const QVector<QString>& userFriendlyColumnNames,
         dynamic_cast<QLabel*>(itemWidget)->setText(userFriendlyColumnNames[i]);
     }
 }
+
+AddRowDialog::~AddRowDialog() = default;
 
 QVector<QVariant> AddRowDialog::getUserInputData() const
 {
