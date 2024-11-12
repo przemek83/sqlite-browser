@@ -7,6 +7,16 @@
 [![Coverage](https://sonarcloud.io/api/project_badges/measure?project=przemek83_sqlite-browser&metric=coverage)](https://sonarcloud.io/summary/new_code?id=przemek83_sqlite-browser)
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=przemek83_sqlite-browser&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=przemek83_sqlite-browser)
 
+## Table of contents
+- [Description](#description)
+- [Getting Started](#getting-started)
+   * [Prerequisites](#prerequisites)
+   * [Building](#building)
+- [Built with](#built-with)
+- [Testing](#testing)
+- [Licensing](#licensing)
+- [Potential further improvements](#potential-further-improvements)
+
 ## Example screenshot  
 ![Alt text](Screenshot1.png?raw=true "")
 ![Alt text](Screenshot2.png?raw=true "")
