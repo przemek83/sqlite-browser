@@ -22,7 +22,9 @@ public:
     ~MainWindow() override;
 
 private:
-    void closeCurrentDatabase();
+    void reset();
+
+    QString closeCurrentDatabase() const;
 
     QSqlTableModel* createNewModel(const QSqlDatabase& database) const;
 
@@ -31,6 +33,8 @@ private:
     void prepareView(const QSqlDatabase& database);
 
     void openDatabaseFile(const QString& databaseFilePath);
+
+    void removeCurrentModel();
 
     std::unique_ptr<Ui::MainWindow> ui_;
 

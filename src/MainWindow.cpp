@@ -40,21 +40,22 @@ MainWindow::MainWindow(DatabaseConfig databaseConfig, QWidget* parent)
     ui_->actionExit->setIcon(style->standardIcon(QStyle::SP_DialogCloseButton));
 }
 
-MainWindow::~MainWindow() { closeCurrentDatabase(); }
+MainWindow::~MainWindow() { reset(); }
 
-void MainWindow::closeCurrentDatabase()
+void MainWindow::reset()
 {
-    QAbstractItemModel* currentModel{ui_->tableView->model()};
-    ui_->tableView->setModel(nullptr);
-    delete currentModel;
+    removeCurrentModel();
+    const QString currentDbPath{closeCurrentDatabase()};
+    QSqlDatabase::removeDatabase(currentDbPath);
+}
 
+QString MainWindow::closeCurrentDatabase() const
+{
     QString currentDatabasePath;
-    {
-        QSqlDatabase database{QSqlDatabase::database()};
-        currentDatabasePath = database.connectionName();
-        database.close();
-    }
-    QSqlDatabase::removeDatabase(currentDatabasePath);
+    QSqlDatabase database{QSqlDatabase::database()};
+    currentDatabasePath = database.connectionName();
+    database.close();
+    return currentDatabasePath;
 }
 
 QSqlTableModel* MainWindow::createNewModel(const QSqlDatabase& database) const
@@ -104,7 +105,7 @@ void MainWindow::openDatabaseFile(const QString& databaseFilePath)
     if (databaseFilePath.isNull())
         return;
 
-    closeCurrentDatabase();
+    reset();
 
     QSqlDatabase database{QSqlDatabase::addDatabase(QStringLiteral("QSQLITE"))};
     database.setDatabaseName(databaseFilePath);
@@ -131,6 +132,12 @@ void MainWindow::openDatabaseFile(const QString& databaseFilePath)
 
     ui_->statusBar->showMessage(tr("Connected to") + " " + databaseFilePath +
                                 "...");
+}
+
+void MainWindow::removeCurrentModel()
+{
+    std::unique_ptr<QAbstractItemModel> currentModel{ui_->tableView->model()};
+    ui_->tableView->setModel(nullptr);
 }
 
 void MainWindow::createNewDb()
