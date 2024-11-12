@@ -57,7 +57,7 @@ void MainWindow::closeCurrentDatabase()
     QSqlDatabase::removeDatabase(currentDatabasePath);
 }
 
-QSqlTableModel* MainWindow::createNewModel(QSqlDatabase& database) const
+QSqlTableModel* MainWindow::createNewModel(const QSqlDatabase& database) const
 {
     QSqlTableModel* model{new QSqlTableModel(ui_->tableView, database)};
     model->setTable(databaseConfig_.getTableName());
@@ -76,11 +76,10 @@ QSqlTableModel* MainWindow::createNewModel(QSqlDatabase& database) const
     return model;
 }
 
-bool MainWindow::databaseStructureOk(QSqlDatabase& database) const
+bool MainWindow::databaseStructureOk(const QSqlDatabase& database) const
 {
     QSqlQuery query(database);
-    bool result{query.exec(databaseConfig_.getCheckTableSql())};
-    if (!result)
+    if (bool result{query.exec(databaseConfig_.getCheckTableSql())}; !result)
     {
         result = query.exec(databaseConfig_.getCreateTableSql());
         if (!result)
@@ -90,7 +89,7 @@ bool MainWindow::databaseStructureOk(QSqlDatabase& database) const
     return true;
 }
 
-void MainWindow::prepareView(QSqlDatabase& database)
+void MainWindow::prepareView(const QSqlDatabase& database)
 {
     ui_->tableView->clearFocus();
 

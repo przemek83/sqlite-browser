@@ -24,11 +24,11 @@ public:
 private:
     void closeCurrentDatabase();
 
-    QSqlTableModel* createNewModel(QSqlDatabase& database) const;
+    QSqlTableModel* createNewModel(const QSqlDatabase& database) const;
 
-    bool databaseStructureOk(QSqlDatabase& database) const;
+    bool databaseStructureOk(const QSqlDatabase& database) const;
 
-    void prepareView(QSqlDatabase& database);
+    void prepareView(const QSqlDatabase& database);
 
     void openDatabaseFile(const QString& databaseFilePath);
 
