@@ -36,7 +36,7 @@ set(UI
 )
 source_group("UI Files" FILES ${UI})
 
-add_library (${PROJECT_NAME}-lib STATIC ${${PROJECT_NAME}_SOURCES} ${UI})
+add_library (${PROJECT_NAME}-lib STATIC ${${PROJECT_NAME}_SOURCES} ${UI} ${${PROJECT_NAME}_RESOURCES})
 target_link_libraries(${PROJECT_NAME}-lib PRIVATE Qt6::Core Qt6::Widgets Qt6::Sql)
 
 add_executable(${PROJECT_NAME} src/main.cpp)
