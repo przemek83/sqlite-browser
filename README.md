@@ -12,9 +12,23 @@
 ![Alt text](Screenshot2.png?raw=true "")
 
 ## Description
-Small tool for the creation and edition of SQLite DB files. Created originally as a coding assignment.
+Small tool for the creation and edition of SQLite DB files. Created originally as a coding assignment in one of recruitment processes.
 
-## Used tools and libs
+## Getting Started
+This section describes briefly how to setup the environment and build the project.
+
+### Prerequisites
+Qt in version 6.5 or greater, C++ compiler with C++17 support as a minimum and CMake 3.16+. 
+
+### Building
+Clone and use CMake directly or via any IDE supporting it. CMake should:
+
+- configure everything automatically,
+- compile and create binaries.
+
+As a result of compilation, binary for simulations and binary for testing should be created.
+
+## Built with
 | Tool |  Windows | Ubuntu |
 | --- | --- | --- |
 | OS version | 10 22H2 | 22.04 |
@@ -25,15 +39,43 @@ Small tool for the creation and edition of SQLite DB files. Created originally a
 | Qt Creator | 10.0.2 | 10.0.2 |
 | VS Code | 1.92.0 | 1.94.2 |
 
-## Compilation and installation
-Use CMake directly or any IDE supporting CMake projects. CMake **should**:
-- configure everything automatically, 
-- compile sqlite-browser and link binaries.  
+## Testing
+For testing purposes, the QTest framework is used. Build the project first. Make sure that the `sqlite-browser-test` target is built. Modern IDEs supporting CMake also support running tests with monitoring of failures. But in case you would like to run it manually, go to the `build/test` directory, where the⁣ binary `sqlite-browser-test` should be available. Launching it should produce the following output on Linux:
+Example run:
+```
+$ ./sqlite-browser-test
+********* Start testing of DatabaseConfigTest *********
+Config: Using QtTest library 6.5.2, Qt 6.5.2 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 10.3.1 20210422 (Red Hat 10.3.1-1)), ubuntu 24.04
+PASS   : DatabaseConfigTest::initTestCase()
+PASS   : DatabaseConfigTest::testTableName()
+PASS   : DatabaseConfigTest::testCreateTableSql()
+PASS   : DatabaseConfigTest::testCheckTableSql()
+PASS   : DatabaseConfigTest::testColumnNames()
+PASS   : DatabaseConfigTest::testUserFriendlyColumnNames()
+PASS   : DatabaseConfigTest::cleanupTestCase()
+Totals: 7 passed, 0 failed, 0 skipped, 0 blacklisted, 1ms
+********* Finished testing of DatabaseConfigTest *********
 
-This is, of course, a happy path... 
+```
+As an alternative, CTest can be used to run tests from the `build/test` directory:
+```
+$ ctest
+Test project /home/ja/GitHubProjects/sqlite-browser/build/test
+    Start 1: sqlite-browser-test
+1/1 Test #1: sqlite-browser-test ..............   Passed    0.01 sec
+
+100% tests passed, 0 tests failed out of 1
+
+Total Test time (real) =   0.01 sec
+```
 
 ## Licensing
-Tankble is published under an MIT license. 
+SQLite Browser is published under an MIT license.
+
+The project uses the following software:
+| Name | License | Home | Description |
+| --- | --- | --- | --- |
+| Qt | LGPLv3 | https://www.qt.io/| cross-platform application development framework |
 
 ## Potential further improvements
 1) Make the creation and usage of database structures fully generic.  
