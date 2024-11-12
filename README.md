@@ -23,7 +23,7 @@ Small tool for the creation and edition of SQLite DB files. Created originally a
 | Git | 2.46.0 | 2.43.0 |
 | Qt | 6.5.2 | 6.5.2 |
 | Qt Creator | 10.0.2 | 10.0.2 |
-| VS Code | - | 1.94.2 |
+| VS Code | 1.92.0 | 1.94.2 |
 
 ## Compilation and installation
 Use CMake directly or any IDE supporting CMake projects. CMake **should**:
