@@ -50,10 +50,10 @@ As a result of compilation, binary for simulations and binary for testing should
 | VS Code | 1.92.0 | 1.94.2 |
 
 ## Testing
-For testing purposes, the QTest framework is used. Build the project first. Make sure that the `sqlite-browser-test` target is built. Modern IDEs supporting CMake also support running tests with monitoring of failures. But in case you would like to run it manually, go to the `build/test` directory, where the⁣ binary `sqlite-browser-test` should be available. Launching it should produce the following output on Linux:
+For testing purposes, the QTest framework is used. Build the project first. Make sure that the `sqlite-browser-tests` target is built. Modern IDEs supporting CMake also support running tests with monitoring of failures. But in case you would like to run it manually, go to the `build/tests` directory, where the⁣ binary `sqlite-browser-tests` should be available. Launching it should produce the following output on Linux:
 Example run:
 ```
-$ ./sqlite-browser-test
+$ ./sqlite-browser-tests
 ********* Start testing of DatabaseConfigTest *********
 Config: Using QtTest library 6.5.2, Qt 6.5.2 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 10.3.1 20210422 (Red Hat 10.3.1-1)), ubuntu 24.04
 PASS   : DatabaseConfigTest::initTestCase()
@@ -67,12 +67,12 @@ Totals: 7 passed, 0 failed, 0 skipped, 0 blacklisted, 1ms
 ********* Finished testing of DatabaseConfigTest *********
 
 ```
-As an alternative, CTest can be used to run tests from the `build/test` directory:
+As an alternative, CTest can be used to run tests from the `build/tests` directory:
 ```
 $ ctest
-Test project <path>/sqlite-browser/build/test
-    Start 1: sqlite-browser-test
-1/1 Test #1: sqlite-browser-test ..............   Passed    0.01 sec
+Test project <path>/sqlite-browser/build/tests
+    Start 1: sqlite-browser-tests
+1/1 Test #1: sqlite-browser-tests ..............   Passed    0.01 sec
 
 100% tests passed, 0 tests failed out of 1
 
