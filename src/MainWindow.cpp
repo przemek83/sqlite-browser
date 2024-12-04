@@ -65,7 +65,8 @@ QSqlTableModel* MainWindow::createNewModel(const QSqlDatabase& database) const
 
     const QVector<QString> userFriendlyColumnNames{
         databaseConfig_.getUserFriendlyColumnNames()};
-    for (int i = 0; i < userFriendlyColumnNames.size(); ++i)
+    const int columnCount{static_cast<int>(userFriendlyColumnNames.size())};
+    for (int i = 0; i < columnCount; ++i)
     {
         // Skip primary key column (column 0).
         model->setHeaderData(i + 1, Qt::Horizontal, userFriendlyColumnNames[i]);
@@ -155,10 +156,11 @@ void MainWindow::prepareRecord(QSqlRecord& record,
     const QVector<QString> columnNames{databaseConfig_.getColumnNames()};
     Q_ASSERT(columnNames.size() == userData.size());
 
-    const auto* model{qobject_cast<QSqlTableModel*>(ui_->tableView->model())};
+    const auto* model{::qobject_cast<QSqlTableModel*>(ui_->tableView->model())};
     QSqlRecord recordToInsert{model->record()};
 
-    for (int i = 0; i < columnNames.size(); ++i)
+    const qsizetype columnCount{columnNames.size()};
+    for (qsizetype i = 0; i < columnCount; ++i)
     {
         const QString& columnName{columnNames[i]};
         const QVariant& userInputDataItem{userData[i]};
@@ -184,15 +186,15 @@ void MainWindow::openExistingDb()
     openDatabaseFile(databasePath);
 }
 
-void MainWindow::rowSelectionChanged(const QModelIndex& current,
-                                     const QModelIndex& /*previous*/)
+void MainWindow::rowSelectionChanged(
+    const QModelIndex& current, [[maybe_unused]] const QModelIndex& previous)
 {
     ui_->actionDelete_row->setEnabled(current.isValid());
 }
 
 void MainWindow::deleteRow()
 {
-    auto* model{qobject_cast<QSqlTableModel*>(ui_->tableView->model())};
+    auto* model{::qobject_cast<QSqlTableModel*>(ui_->tableView->model())};
 
     if (const int rowToBeRemove{ui_->tableView->currentIndex().row()};
         model->removeRow(rowToBeRemove))
@@ -209,7 +211,7 @@ void MainWindow::addRow()
     if (!success)
         return;
 
-    auto* model{qobject_cast<QSqlTableModel*>(ui_->tableView->model())};
+    auto* model{::qobject_cast<QSqlTableModel*>(ui_->tableView->model())};
     QSqlRecord recordToInsert{model->record()};
 
     prepareRecord(recordToInsert, userInputData);
