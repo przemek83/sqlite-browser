@@ -22,7 +22,7 @@
 ![Alt text](Screenshot2.png?raw=true "")
 
 ## Description
-Small tool for the creation and edition of SQLite DB files. Created originally as a coding assignment in one of recruitment processes.
+Small tool for the creation and edition of SQLite database files. Created originally as a coding assignment in one of recruitment processes.
 
 ## Getting Started
 This section describes briefly how to setup the environment and build the project.
@@ -32,7 +32,6 @@ Qt in version 6.5 or greater, C++ compiler with C++17 support as a minimum and C
 
 ### Building
 Clone and use CMake directly or via any IDE supporting it. CMake should:
-
 - configure everything automatically,
 - compile and create binaries.
 
@@ -41,13 +40,13 @@ As a result of compilation, binary for simulations and binary for testing should
 ## Built with
 | Tool |  Windows | Ubuntu |
 | --- | --- | --- |
-| OS version | 10 22H2 | 22.04 |
+| OS version | 10 22H2 | 24.04 |
 | GCC | 13.1.0 | 13.2.0 |
 | CMake | 3.30.2 | 3.28.3 |
 | Git | 2.46.0 | 2.43.0 |
 | Qt | 6.5.2 | 6.5.2 |
 | Qt Creator | 10.0.2 | 10.0.2 |
-| VS Code | 1.92.0 | 1.94.2 |
+| VS Code | 1.92.0 | 1.95.3 |
 
 ## Testing
 For testing purposes, the QTest framework is used. Build the project first. Make sure that the `sqlite-browser-tests` target is built. Modern IDEs supporting CMake also support running tests with monitoring of failures. But in case you would like to run it manually, go to the `build/tests` directory, where the⁣ binary `sqlite-browser-tests` should be available. Launching it should produce the following output on Linux:
