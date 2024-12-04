@@ -7,7 +7,8 @@ QString DatabaseConfig::getTableName() const { return tableName_; }
 QString DatabaseConfig::getCreateTableSql() const
 {
     QString sql{"CREATE TABLE " + tableName_ + " ("};
-    for (size_t i = 0; i < columns_.size(); ++i)
+    const size_t columnCount{columns_.size()};
+    for (size_t i = 0; i < columnCount; ++i)
     {
         const auto& column{columns_[i]};
         sql += column.columnName_ + " ";
@@ -15,8 +16,10 @@ QString DatabaseConfig::getCreateTableSql() const
         if (column.primaryKey_)
             sql += QStringLiteral(" PRIMARY KEY");
 
-        sql += (i < columns_.size() - 1 ? QStringLiteral(", ")
-                                        : QStringLiteral(");"));
+        if (i < (columns_.size() - 1))
+            sql += QStringLiteral(", ");
+        else
+            sql += QStringLiteral(");");
     }
 
     return sql;
@@ -25,12 +28,16 @@ QString DatabaseConfig::getCreateTableSql() const
 QString DatabaseConfig::getCheckTableSql() const
 {
     QString sql{QStringLiteral("SELECT ")};
-    for (size_t i = 0; i < columns_.size(); ++i)
+    const size_t columnCount{columns_.size()};
+    for (size_t i = 0; i < columnCount; ++i)
     {
         const auto& column{columns_[i]};
         sql += column.columnName_;
-        sql += (i < columns_.size() - 1 ? QStringLiteral(", ")
-                                        : QStringLiteral(" "));
+
+        if (i < (columns_.size() - 1))
+            sql += QStringLiteral(", ");
+        else
+            sql += QStringLiteral(" ");
     }
 
     sql += " FROM " + tableName_ + " LIMIT 1;";

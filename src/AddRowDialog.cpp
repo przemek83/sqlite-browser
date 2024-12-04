@@ -10,7 +10,8 @@ AddRowDialog::AddRowDialog(const QVector<QString>& userFriendlyColumnNames,
 
     Q_ASSERT(userFriendlyColumnNames.size() == ui_->gridLayout->rowCount());
 
-    for (int i = 0; i < ui_->gridLayout->rowCount(); ++i)
+    const int rowCount{ui_->gridLayout->rowCount()};
+    for (int i = 0; i < rowCount; ++i)
     {
         QWidget* itemWidget{ui_->gridLayout->itemAtPosition(i, 0)->widget()};
         dynamic_cast<QLabel*>(itemWidget)->setText(userFriendlyColumnNames[i]);
