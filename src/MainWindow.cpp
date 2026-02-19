@@ -12,8 +12,8 @@
 
 #include "AddRowDialog.h"
 
-MainWindow::MainWindow(DatabaseConfig databaseConfig, QWidget* parent)
-    : QMainWindow(parent),
+MainWindow::MainWindow(DatabaseConfig databaseConfig)
+    : QMainWindow(nullptr),
       ui_{std::make_unique<Ui::MainWindow>()},
       databaseConfig_(std::move(databaseConfig))
 {
