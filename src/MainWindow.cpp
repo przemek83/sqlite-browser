@@ -170,18 +170,18 @@ void MainWindow::prepareRecord(QSqlRecord& record,
 
 void MainWindow::createNewDb()
 {
-    const QString newDatabasePath{QFileDialog::getSaveFileName(
-        this, QStringLiteral("Create new DB file"), QStringLiteral(""),
-        tr("SQLiteDB (*.sqlite3);; All (*.*))"))};
+    const QString newDatabasePath{
+        QFileDialog::getSaveFileName(this, QStringLiteral("Create new DB file"),
+                                     QStringLiteral(""), filesFilter_)};
 
     openDatabaseFile(newDatabasePath);
 }
 
 void MainWindow::openExistingDb()
 {
-    const QString databasePath{QFileDialog::getOpenFileName(
-        this, QStringLiteral("Open DB file"), QStringLiteral(""),
-        tr("SQLiteDB (*.sqlite3);; All files (*)"))};
+    const QString databasePath{
+        QFileDialog::getOpenFileName(this, QStringLiteral("Open DB file"),
+                                     QStringLiteral(""), filesFilter_)};
 
     openDatabaseFile(databasePath);
 }

@@ -46,6 +46,8 @@ private:
 
     DatabaseConfig databaseConfig_;
 
+    const QString filesFilter_{tr("SQLiteDB (*.sqlite3);; All files (*)")};
+
 private slots:
     void createNewDb();
 
