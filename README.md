@@ -1,4 +1,5 @@
 [![Build & test](https://github.com/przemek83/sqlite-browser/actions/workflows/buld-and-test.yml/badge.svg)](https://github.com/przemek83/sqlite-browser/actions/workflows/buld-and-test.yml)
+[![CodeQL](https://github.com/przemek83/sqlite-browser/actions/workflows/codeql.yml/badge.svg)](https://github.com/przemek83/sqlite-browser/actions/workflows/codeql.yml)
 [![codecov](https://codecov.io/github/przemek83/sqlite-browser/graph/badge.svg?token=K1SR2JA727)](https://codecov.io/github/przemek83/sqlite-browser)
 
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=przemek83_sqlite-browser&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=przemek83_sqlite-browser)
