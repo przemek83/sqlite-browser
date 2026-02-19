@@ -181,7 +181,7 @@ void MainWindow::openExistingDb()
 {
     const QString databasePath{QFileDialog::getOpenFileName(
         this, QStringLiteral("Open DB file"), QStringLiteral(""),
-        tr("SQLiteDB (*.sqlite3);; All (*.*))"))};
+        tr("SQLiteDB (*.sqlite3);; All files (*)"))};
 
     openDatabaseFile(databasePath);
 }
