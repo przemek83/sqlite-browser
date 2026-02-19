@@ -25,7 +25,7 @@ public:
 private:
     void reset();
 
-    QString closeCurrentDatabase() const;
+    static QString closeCurrentDatabase();
 
     QSqlTableModel* createNewModel(const QSqlDatabase& database) const;
 

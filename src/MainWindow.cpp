@@ -49,7 +49,7 @@ void MainWindow::reset()
     QSqlDatabase::removeDatabase(currentDbPath);
 }
 
-QString MainWindow::closeCurrentDatabase() const
+QString MainWindow::closeCurrentDatabase()
 {
     QSqlDatabase database{QSqlDatabase::database()};
     QString currentDatabasePath{database.connectionName()};
