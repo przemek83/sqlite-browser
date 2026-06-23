@@ -39,15 +39,13 @@ Clone and use CMake directly or via any IDE supporting it. CMake should:
 As a result of compilation, binary for simulations and binary for testing should be created.
 
 ## Built with
-| Tool |  Windows | Ubuntu |
-| --- | --- | --- |
-| OS version | 10 22H2 | 24.04 |
-| GCC | 13.1.0 | 13.2.0 |
-| CMake | 3.30.2 | 3.28.3 |
-| Git | 2.46.0 | 2.43.0 |
-| Qt | 6.5.2 | 6.5.2 |
-| Qt Creator | 10.0.2 | 10.0.2 |
-| VS Code | 1.92.0 | 1.95.3 |
+| |  Windows | Windows | Ubuntu |
+| --- | --- | --- | --- | 
+| OS version | 11 24H2 | 11 24H2 | 24.04 |
+| Qt | 6.8.3 | 6.8.3 | 6.8.3 |
+| compiler | GCC 13.1.0 | MSVC 19.44 | GCC 13.3.0 |
+| CMake | 4.3.4 | 4.3.4 | 4.3.4 |
+| Git | 2.46.0 | 2.46.0 | 2.43.0 |
 
 ## Testing
 For testing purposes, the QtTest framework is used. Build the project first. Make sure that the `sqlite-browser-tests` target is built. Modern IDEs supporting CMake also support running tests with monitoring of failures. But in case you would like to run it manually, go to the `build/tests` directory, where the⁣ binary `sqlite-browser-tests` should be available. Launching it should produce the following output on Linux:
