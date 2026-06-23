@@ -29,7 +29,7 @@ Small tool for the creation and edition of SQLite database files. Created origin
 This section describes briefly how to setup the environment and build the project.
 
 ### Prerequisites
-Qt in version 6.5 or greater, C++ compiler with C++17 support as a minimum and CMake 3.16+. 
+Qt in version 6.8 or greater, C++ compiler with C++17 support as a minimum and CMake 3.16+. 
 
 ### Building
 Clone and use CMake directly or via any IDE supporting it. CMake should:
@@ -53,7 +53,7 @@ Example run:
 ```
 $ ./sqlite-browser-tests
 ********* Start testing of DatabaseConfigTest *********
-Config: Using QtTest library 6.5.2, Qt 6.5.2 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 10.3.1 20210422 (Red Hat 10.3.1-1)), ubuntu 24.04
+Config: Using QtTest library 6.8.3, Qt 6.8.3 (x86_64-little_endian-lp64 shared (dynamic) release build; by GCC 10.3.1 20210422 (Red Hat 10.3.1-1)), ubuntu 24.04
 PASS   : DatabaseConfigTest::initTestCase()
 PASS   : DatabaseConfigTest::testTableName()
 PASS   : DatabaseConfigTest::testCreateTableSql()
